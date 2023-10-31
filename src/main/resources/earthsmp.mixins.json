@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "io.github.pulsebeat02.earthsmp.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "StrongerMobsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
