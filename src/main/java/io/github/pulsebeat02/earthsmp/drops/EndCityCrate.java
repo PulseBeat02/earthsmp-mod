@@ -10,7 +10,7 @@ import java.util.Calendar;
 public final class EndCityCrate extends LootCrate {
 
   public EndCityCrate(@NotNull final EarthSMPMod mod) {
-    super(mod, Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 4);
+    super(mod, Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 3);
   }
 
   @Override

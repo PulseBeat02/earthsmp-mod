@@ -15,7 +15,11 @@ import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.PlayerManager;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.*;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
@@ -23,6 +27,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+import java.util.List;
 import java.util.SplittableRandom;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -42,7 +48,6 @@ public abstract class LootCrate {
   private @NotNull final EarthSMPMod mod;
   private @NotNull final Continent continent;
   private @NotNull final Identifier lootTableId;
-  private @NotNull final BlockPos pos;
   private final int count;
 
   public LootCrate(
@@ -53,7 +58,6 @@ public abstract class LootCrate {
     this.mod = mod;
     this.continent = continent;
     this.lootTableId = lootTableId;
-    this.pos = this.generateRandomPosition();
     this.count = count;
     this.spawn();
   }
@@ -103,18 +107,36 @@ public abstract class LootCrate {
   private void checks() {
     while (!this.condition()) {}
     for (int i = 0; i < this.count; i++) {
-      this.spawnChest();
+      final BlockPos pos = this.generateRandomPosition();
+      this.spawnChest(pos);
     }
   }
 
   public abstract boolean condition();
 
-  public void spawnChest() {
+  public void spawnChest(@NotNull final BlockPos pos) {
     final MinecraftServer server = this.mod.getServer();
     final World world = server.getOverworld();
-    final BlockEntity blockEntity = world.getBlockEntity(this.pos);
+    final BlockEntity blockEntity = world.getBlockEntity(pos);
     if (blockEntity instanceof final ChestBlockEntity chestEntity) {
       chestEntity.setLootTable(this.lootTableId, world.random.nextLong());
+    }
+    this.broadcastMessage(pos);
+  }
+
+  public void broadcastMessage(@NotNull final BlockPos pos) {
+    final MinecraftServer server = this.mod.getServer();
+    final PlayerManager manager = server.getPlayerManager();
+    final List<ServerPlayerEntity> players = manager.getPlayerList();
+    for (final ServerPlayerEntity player : players) {
+      final String raw =
+          "A loot crate has spawned at %d, %d, %d!".formatted(pos.getX(), pos.getY(), pos.getZ());
+      final TextContent literal = new LiteralTextContent(raw);
+      final MutableText text = MutableText.of(literal);
+      final TextColor color = TextColor.fromFormatting(Formatting.GOLD);
+      final Style style = Style.EMPTY.withBold(true).withColor(color);
+      text.setStyle(style);
+      player.sendMessage(text);
     }
   }
 }
