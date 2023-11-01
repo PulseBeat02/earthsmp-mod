@@ -22,7 +22,7 @@ public class ElytraWornNerfMixin {
     final int nextRoll = entity.getRoll() + 1;
     if (!entity.getWorld().isClient && nextRoll % 10 == 0) {
       if ((nextRoll / 10) % 2 == 0) {
-        chestStack.damage(4, entity, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
+        chestStack.damage(3, entity, p -> p.sendEquipmentBreakStatus(EquipmentSlot.CHEST));
       }
       entity.emitGameEvent(GameEvent.ELYTRA_GLIDE);
     }
