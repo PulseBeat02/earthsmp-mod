@@ -6,6 +6,7 @@
     "ElytraWornNerfMixin",
     "FireworkNerfMixin",
     "MinerFatigueNerfMixin",
+    "NerfVillagerMixin",
     "ServerMixin",
     "StrongerMobsMixin",
     "VelocityNerfMixin"
