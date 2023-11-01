@@ -1,29 +1,19 @@
 package io.github.pulsebeat02.earthsmp.drops;
 
-import io.github.pulsebeat02.earthsmp.Continent;
-import io.github.pulsebeat02.earthsmp.EarthSMPMod;
-import net.minecraft.loot.LootTables;
-import org.jetbrains.annotations.NotNull;
+import static java.util.Calendar.SUNDAY;
 
-import java.util.Calendar;
+import io.github.pulsebeat02.earthsmp.Continent;
+import io.github.pulsebeat02.earthsmp.utils.Utils;
+import net.minecraft.loot.LootTables;
 
 public final class EndCityCrate extends LootCrate {
 
-  public EndCityCrate(@NotNull final EarthSMPMod mod) {
-    super(mod, Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 3);
+  public EndCityCrate() {
+    super(Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 3);
   }
 
   @Override
   public boolean condition() {
-    final Calendar calendar = Calendar.getInstance();
-    return this.checkDay(calendar) && this.checkTime(calendar);
-  }
-
-  public boolean checkDay(@NotNull final Calendar calendar) {
-    return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
-  }
-
-  public boolean checkTime(@NotNull final Calendar calendar) {
-    return calendar.get(Calendar.HOUR_OF_DAY) == 10 && calendar.get(Calendar.MINUTE) == 0;
+    return Utils.checkTime(SUNDAY, 10, 0);
   }
 }
