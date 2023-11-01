@@ -3,9 +3,12 @@
   "package": "io.github.pulsebeat02.earthsmp.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ElytraWornNerfMixin",
+    "FireworkNerfMixin",
+    "MinerFatigueNerfMixin",
     "ServerMixin",
     "StrongerMobsMixin",
-    "MinerFatigueNerfMixin"
+    "VelocityNerfMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerWorld.class)
-public class StrongerMobsMixin {
+public final class StrongerMobsMixin {
   @Inject(at = @At("TAIL"), method = "spawnEntity")
   public void spawnEntity(
       @NotNull final Entity entity, @NotNull final CallbackInfoReturnable<Boolean> cir) {

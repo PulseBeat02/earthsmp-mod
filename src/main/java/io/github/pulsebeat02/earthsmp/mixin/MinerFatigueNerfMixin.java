@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayNetworkHandler.class)
-public abstract class MinerFatigueNerfMixin {
+public final class MinerFatigueNerfMixin {
 
   @Shadow public @NotNull ServerPlayerEntity player;
 

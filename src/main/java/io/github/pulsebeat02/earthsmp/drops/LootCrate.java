@@ -36,7 +36,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 
-public abstract class LootCrate {
+public abstract sealed class LootCrate
+    permits AncientCityCrate, BastionCrate, EndCityCrate, VillagerCrate {
 
   private static final SplittableRandom RANDOM;
   private static final ExecutorService SERVICE;

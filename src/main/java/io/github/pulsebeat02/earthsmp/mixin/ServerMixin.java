@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(MinecraftServer.class)
-public class ServerMixin {
+public final class ServerMixin {
 
   @Inject(method = "runServer", at = @At("TAIL"))
   private void serverLoaded(@NotNull final CallbackInfo ci) {
