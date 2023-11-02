@@ -2,6 +2,7 @@ package io.github.pulsebeat02.earthsmp.drops;
 
 import io.github.pulsebeat02.earthsmp.Continent;
 import io.github.pulsebeat02.earthsmp.EarthSMPMod;
+import io.github.pulsebeat02.earthsmp.utils.Utils;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -39,11 +40,9 @@ import java.util.function.Supplier;
 public abstract sealed class LootCrate
     permits AncientCityCrate, BastionCrate, EndCityCrate, VillagerCrate {
 
-  private static final SplittableRandom RANDOM;
   private static final ExecutorService SERVICE;
 
   static {
-    RANDOM = new SplittableRandom();
     SERVICE = Executors.newCachedThreadPool();
   }
 
@@ -52,51 +51,11 @@ public abstract sealed class LootCrate
   private final int count;
 
   public LootCrate(
-      @NotNull final Continent continent,
-      @NotNull final Identifier lootTableId,
-      @NotNull final int count) {
+      @NotNull final Continent continent, @NotNull final Identifier lootTableId, final int count) {
     this.continent = continent;
     this.lootTableId = lootTableId;
     this.count = count;
     this.spawn();
-  }
-
-  public @NotNull BlockPos generateRandomPosition() {
-    final Pair<Integer, Integer> topLeft = this.continent.getTopLeft();
-    final Pair<Integer, Integer> bottomRight = this.continent.getBottomRight();
-    outer:
-    while (true) {
-      final int x = this.generateRandomX(topLeft, bottomRight);
-      final int z = this.generateRandomZ(topLeft, bottomRight);
-      final MinecraftServer server = EarthSMPMod.getServer();
-      final World world = server.getOverworld();
-      BlockPos pos = null;
-      for (int y = 255; y > -60; y--) {
-        pos = new BlockPos(x, y, z);
-        final BlockState state = world.getBlockState(pos);
-        if (state.isAir()) {
-          continue;
-        }
-        if (state.isLiquid()) {
-          continue outer;
-        }
-      }
-      return pos.add(0, 1, 0);
-    }
-  }
-
-  private int generateRandomX(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight) {
-    return (int) (RANDOM.nextDouble() * (bottomRight.getLeft() - topLeft.getLeft()))
-        + topLeft.getLeft();
-  }
-
-  private int generateRandomZ(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight) {
-    return (int) (RANDOM.nextDouble() * (bottomRight.getRight() - topLeft.getRight()))
-        + topLeft.getRight();
   }
 
   private void spawn() {
@@ -106,7 +65,7 @@ public abstract sealed class LootCrate
   private void checks() {
     while (!this.condition()) {}
     for (int i = 0; i < this.count; i++) {
-      final BlockPos pos = this.generateRandomPosition();
+      final BlockPos pos = Utils.generateRandomPosition(this.continent);
       this.spawnChest(pos);
     }
   }
