@@ -59,25 +59,25 @@ public final class NerfVillagerMixin {
                 },
                 5,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.SellItemFactory(Items.GOLDEN_CARROT, 3, 3, 30),
+                  new TradeOffers.SellItemFactory(Items.GOLDEN_CARROT, 6, 3, 30),
                   new TradeOffers.SellItemFactory(Items.GLISTERING_MELON_SLICE, 4, 3, 30)
                 }));
     PROFESSION_TO_LEVELED_TRADE.put(VillagerProfession.FARMER, farmer);
 
     final Int2ObjectMap<TradeOffers.Factory[]> librarian =
         copyToFastUtilMap(
-            ImmutableMap.builder()
+            ImmutableMap.<Integer, TradeOffers.Factory[]>builder()
                 .put(
                     1,
                     new TradeOffers.Factory[] {
                       new TradeOffers.BuyItemFactory(Items.PAPER, 48, 16, 2),
                       new TradeOffers.EnchantBookFactory(1),
-                      new TradeOffers.SellItemFactory(Blocks.BOOKSHELF, 9, 1, 12, 1)
+                      new TradeOffers.SellItemFactory(Blocks.BOOKSHELF, 18, 1, 12, 1)
                     })
                 .put(
                     2,
                     new TradeOffers.Factory[] {
-                      new TradeOffers.BuyItemFactory(Items.BOOK, 4, 12, 10),
+                      new TradeOffers.BuyItemFactory(Items.BOOK, 8, 12, 10),
                       new TradeOffers.EnchantBookFactory(5),
                       new TradeOffers.SellItemFactory(Items.LANTERN, 1, 1, 5)
                     })
@@ -140,14 +140,14 @@ public final class NerfVillagerMixin {
                 },
                 4,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_LEGGINGS, 14, 3, 15, 0.2F),
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_BOOTS, 8, 3, 15, 0.2F)
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_LEGGINGS, 64, 3, 15, 0.2F),
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_BOOTS, 64, 3, 15, 0.2F)
                 },
                 5,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_HELMET, 8, 3, 30, 0.2F),
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_HELMET, 64, 3, 30, 0.2F),
                   new TradeOffers.SellEnchantedToolFactory(
-                      Items.DIAMOND_CHESTPLATE, 16, 3, 30, 0.2F)
+                      Items.DIAMOND_CHESTPLATE, 64, 3, 30, 0.2F)
                 }));
     PROFESSION_TO_LEVELED_TRADE.put(VillagerProfession.ARMORER, armorer);
 
@@ -170,11 +170,11 @@ public final class NerfVillagerMixin {
                 4,
                 new TradeOffers.Factory[] {
                   new TradeOffers.BuyItemFactory(Items.DIAMOND, 1, 12, 30),
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_AXE, 12, 3, 15, 0.2F)
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_AXE, 64, 3, 15, 0.2F)
                 },
                 5,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_SWORD, 8, 3, 30, 0.2F)
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_SWORD, 64, 3, 30, 0.2F)
                 }));
     PROFESSION_TO_LEVELED_TRADE.put(VillagerProfession.WEAPONSMITH, weaponsmith);
 
@@ -209,20 +209,20 @@ public final class NerfVillagerMixin {
                 4,
                 new TradeOffers.Factory[] {
                   new TradeOffers.BuyItemFactory(Items.DIAMOND, 1, 12, 30),
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_AXE, 12, 3, 15, 0.2F),
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_SHOVEL, 5, 3, 15, 0.2F)
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_AXE, 64, 3, 15, 0.2F),
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_SHOVEL, 64, 3, 15, 0.2F)
                 },
                 5,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_PICKAXE, 13, 3, 30, 0.2F)
+                  new TradeOffers.SellEnchantedToolFactory(Items.DIAMOND_PICKAXE, 64, 3, 30, 0.2F)
                 }));
     PROFESSION_TO_LEVELED_TRADE.put(VillagerProfession.TOOLSMITH, toolsmith);
   }
 
   @Contract("_ -> new")
   @Unique
-  private static @NotNull Int2ObjectOpenHashMap copyToFastUtilMap(
-      final ImmutableMap<Object, Object> map) {
+  private static @NotNull Int2ObjectOpenHashMap<TradeOffers.Factory[]> copyToFastUtilMap(
+      final ImmutableMap<Integer, TradeOffers.Factory[]> map) {
     return new Int2ObjectOpenHashMap<>(map);
   }
 }

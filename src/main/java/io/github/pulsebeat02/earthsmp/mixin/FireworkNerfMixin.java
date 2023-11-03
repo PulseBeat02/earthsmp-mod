@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public final class FireworkNerfMixin {
   @ModifyConstant(method = "tick", constant = @Constant(doubleValue = 1.5D))
   private double nerf(final double constant) {
-    return 0.9D;
+    return 1D;
   }
 }

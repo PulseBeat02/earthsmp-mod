@@ -7,11 +7,8 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(PlayerEntity.class)
 public final class VelocityNerfMixin {
-
-  @ModifyConstant(
-      method = {"getVelocityMultiplier"},
-      constant = {@Constant(floatValue = 1.0F)})
+  @ModifyConstant(method = "getVelocityMultiplier", constant = @Constant(floatValue = 1.0f))
   private float nerf(final float constant) {
-    return 0.8F;
+    return 0.2f;
   }
 }
