@@ -1,5 +1,8 @@
 package io.github.pulsebeat02.earthsmp.table;
 
+import static java.util.Map.entry;
+
+import java.util.Map;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
 import net.minecraft.item.Item;
@@ -13,11 +16,6 @@ import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-import java.util.Set;
-
-import static java.util.Map.entry;
 
 public final class FishingLootTable {
 

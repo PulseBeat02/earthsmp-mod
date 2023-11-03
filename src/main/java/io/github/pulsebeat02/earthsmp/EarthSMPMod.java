@@ -4,6 +4,7 @@ import io.github.pulsebeat02.earthsmp.drops.AncientCityCrate;
 import io.github.pulsebeat02.earthsmp.drops.BastionCrate;
 import io.github.pulsebeat02.earthsmp.drops.EndCityCrate;
 import io.github.pulsebeat02.earthsmp.drops.VillagerCrate;
+import io.github.pulsebeat02.earthsmp.table.EmeraldLootTable;
 import io.github.pulsebeat02.earthsmp.table.FishingLootTable;
 import net.fabricmc.api.ModInitializer;
 
@@ -33,6 +34,7 @@ public class EarthSMPMod implements ModInitializer {
 
   private void registerLootTable() {
     new FishingLootTable();
+    new EmeraldLootTable();
   }
 
   public static @NotNull MinecraftServer getServer() {

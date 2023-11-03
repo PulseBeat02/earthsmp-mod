@@ -5,6 +5,7 @@
   "mixins": [
     "ElytraWornNerfMixin",
     "FireworkNerfMixin",
+    "HorseBuffMixin",
     "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
     "ServerMixin",
