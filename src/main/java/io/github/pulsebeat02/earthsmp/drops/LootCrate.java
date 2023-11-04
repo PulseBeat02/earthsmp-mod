@@ -63,10 +63,19 @@ public abstract sealed class LootCrate
   }
 
   private void checks() {
-    while (!this.condition()) {}
+    this.block();
     for (int i = 0; i < this.count; i++) {
       final BlockPos pos = Utils.generateRandomPosition(this.continent);
       this.spawnChest(pos);
+    }
+  }
+
+  private void block() {
+    while (!this.condition()) {
+      try {
+        Thread.sleep(30000);
+      } catch (final InterruptedException ignored) {
+      }
     }
   }
 

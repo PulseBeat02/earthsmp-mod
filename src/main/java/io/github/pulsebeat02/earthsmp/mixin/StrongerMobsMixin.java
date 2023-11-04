@@ -3,6 +3,8 @@ package io.github.pulsebeat02.earthsmp.mixin;
 import io.github.pulsebeat02.earthsmp.Continent;
 import io.github.pulsebeat02.earthsmp.utils.Utils;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.nbt.NbtCompound;
@@ -41,16 +43,17 @@ public final class StrongerMobsMixin {
       tag.putBoolean("powered", true);
       tag.putShort("Fuse", (short) 1);
       tag.putByte("ExplosionRadius", (byte) 4);
-      tag.putInt("Fuse", 1);
       creeper.readCustomDataFromNbt(tag);
     }
   }
 
   @Unique
   private void modifyEntity(@NotNull final HostileEntity entity) {
-    final float hp = entity.getMaxHealth();
-    entity.setHealth(hp * 3.0f);
+    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.HEALTH_BOOST, Integer.MAX_VALUE, 10));
+    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.JUMP_BOOST, Integer.MAX_VALUE, 3));
+    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, Integer.MAX_VALUE, 3));
+    entity.addStatusEffect(new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 2));
     entity.setCanPickUpLoot(true);
-    entity.setMovementSpeed(2f);
+    entity.setMovementSpeed(entity.getMovementSpeed() * 3);
   }
 }

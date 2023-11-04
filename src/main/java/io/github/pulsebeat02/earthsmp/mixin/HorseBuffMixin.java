@@ -4,10 +4,7 @@ import java.util.function.DoubleSupplier;
 import java.util.function.IntUnaryOperator;
 import net.minecraft.entity.passive.AbstractHorseEntity;
 import org.jetbrains.annotations.NotNull;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 
 @Mixin(AbstractHorseEntity.class)
 public final class HorseBuffMixin {
@@ -28,6 +25,7 @@ public final class HorseBuffMixin {
     MAX_HEALTH_BONUS = getChildHealthBonus(max -> 2 * (max - 1));
   }
 
+  @Unique
   private static double getChildJumpStrengthBonus(
       @NotNull final DoubleSupplier randomDoubleGetter) {
     return (double) 0.4f
@@ -36,6 +34,7 @@ public final class HorseBuffMixin {
         + randomDoubleGetter.getAsDouble() * 0.2;
   }
 
+  @Unique
   private static double getChildMovementSpeedBonus(
       @NotNull final DoubleSupplier randomDoubleGetter) {
     return ((double) 0.45f

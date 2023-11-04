@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.SplittableRandom;
 
@@ -48,10 +49,10 @@ public final class Utils {
   }
 
   public static boolean checkTime(final int day, final int hour, final int minute) {
-    final Calendar calendar = Calendar.getInstance();
-    return calendar.get(Calendar.DAY_OF_WEEK) == day
-        && calendar.get(Calendar.HOUR_OF_DAY) == hour
-        && calendar.get(Calendar.MINUTE) == minute;
+    final ZonedDateTime time = ZonedDateTime.now();
+    return time.getDayOfWeek().getValue() == day
+        && time.getHour() == hour
+        && time.getMinute() == minute;
   }
 
   public static @NotNull BlockPos generateRandomPosition(@NotNull final Continent continent) {

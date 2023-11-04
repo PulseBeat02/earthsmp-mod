@@ -4,6 +4,7 @@ import io.github.pulsebeat02.earthsmp.Continent;
 import io.github.pulsebeat02.earthsmp.utils.Utils;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -15,10 +16,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(ServerPlayNetworkHandler.class)
+@Mixin(ServerPlayerEntity.class)
 public final class MinerFatigueNerfMixin {
-
-  @Shadow public @NotNull ServerPlayerEntity player;
 
   @Unique private long ms;
 
@@ -26,20 +25,21 @@ public final class MinerFatigueNerfMixin {
     this.ms = System.currentTimeMillis();
   }
 
-  @Inject(at = @At("TAIL"), method = "syncWithPlayerPosition")
-  public void syncWithPlayerPosition(@NotNull final CallbackInfo ci) {
+  @Inject(at = @At("HEAD"), method = "playerTick")
+  public void tick(@NotNull final CallbackInfo ci) {
     final long now = System.currentTimeMillis();
-    if (now - this.ms < 10000L) {
+    if (now - this.ms < 15000L) {
       this.ms = now;
       return;
     }
-    final ServerPlayerEntity player = this.player;
+    final ServerPlayerEntity player = (ServerPlayerEntity) (Object) this;
     final BlockPos pos = player.getBlockPos();
     final Continent continent = Continent.AF;
     final int x = pos.getX();
     final int z = pos.getZ();
-    if (Utils.withinContinent(continent, x, z)) {
-      player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 1, 1));
+    if (!Utils.withinContinent(continent, x, z)) {
+      return;
     }
+    player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 15, 1));
   }
 }
