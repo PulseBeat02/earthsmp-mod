@@ -8,6 +8,7 @@ import net.minecraft.loot.LootManager;
 import net.minecraft.loot.LootPool;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.entry.ItemEntry;
+import net.minecraft.loot.entry.LeafEntry;
 import net.minecraft.loot.provider.number.UniformLootNumberProvider;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
@@ -46,7 +47,7 @@ public final class EmeraldLootTable {
 
   private void removeEmeraldDrop(
       @NotNull final Identifier id,
-      final LootTable.@NotNull Builder tableBuilder,
+      @NotNull final LootTable.Builder tableBuilder,
       @NotNull final LootTableSource source,
       final Identifier table) {
     if (!id.equals(table)) {
@@ -55,9 +56,11 @@ public final class EmeraldLootTable {
     if (!source.isBuiltin()) {
       return;
     }
+    final LeafEntry.Builder<?> entry = ItemEntry.builder(Items.EMERALD);
+    entry.weight(0);
     final LootPool.Builder builder = LootPool.builder();
     builder.rolls(UniformLootNumberProvider.create(0, 0));
-    builder.with(ItemEntry.builder(Items.EMERALD));
+    builder.with(entry);
     tableBuilder.pool(builder.build());
   }
 }
