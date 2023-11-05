@@ -11,7 +11,8 @@
     "NerfVillagerMixin",
     "ServerMixin",
     "StrongerMobsMixin",
-    "VelocityNerfMixin"
+    "VelocityNerfMixin",
+    "SuspiciousBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
