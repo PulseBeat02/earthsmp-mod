@@ -22,7 +22,7 @@
   "mixins": [
     "earthsmp.mixins.json",
     {
-      "config": "modid.client.mixins.json",
+      "config": "earthsmp.client.mixins.json",
       "environment": "client"
     }
   ],

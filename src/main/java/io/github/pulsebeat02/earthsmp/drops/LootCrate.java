@@ -44,6 +44,7 @@ public abstract sealed class LootCrate
 
   static {
     SERVICE = Executors.newCachedThreadPool();
+    Runtime.getRuntime().addShutdownHook(new Thread(SERVICE::shutdown));
   }
 
   private @NotNull final Continent continent;
