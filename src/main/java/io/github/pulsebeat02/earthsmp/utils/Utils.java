@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -96,5 +97,9 @@ public final class Utils {
   public static @NotNull <T extends Enum<?>> T randomEnum(@NotNull final Class<T> clazz) {
     final int index = RANDOM.nextInt(clazz.getEnumConstants().length);
     return clazz.getEnumConstants()[index];
+  }
+
+  public static @NotNull Vec3d cloneVector(@NotNull final Vec3d vector) {
+    return new Vec3d(vector.getX(), vector.getY(), vector.getZ());
   }
 }
