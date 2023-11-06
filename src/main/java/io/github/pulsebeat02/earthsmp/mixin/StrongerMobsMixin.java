@@ -32,6 +32,9 @@ public final class StrongerMobsMixin {
     if (!(entity instanceof final HostileEntity hostile)) {
       return;
     }
+    if (entity.hasCustomName()) {
+      return;
+    }
     this.modifyCreeper(hostile);
     this.modifyEntity(hostile);
   }
