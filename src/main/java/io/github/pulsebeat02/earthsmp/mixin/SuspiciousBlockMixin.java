@@ -132,6 +132,9 @@ public abstract class SuspiciousBlockMixin extends BlockEntity {
     if (player instanceof final ServerPlayerEntity serverPlayerEntity) {
       Criteria.PLAYER_GENERATES_CONTAINER_LOOT.trigger(serverPlayerEntity, this.lootTable);
     }
+    if (this.item != null) {
+      return;
+    }
     final BlockState state = this.getCachedState();
     if (state.isOf(Blocks.SUSPICIOUS_GRAVEL)) {
       final int index = RANDOM.nextInt(GRAVEL_DROPS.size());
@@ -141,6 +144,7 @@ public abstract class SuspiciousBlockMixin extends BlockEntity {
       this.item = SAND_DROPS.get(index).copy();
     }
     this.lootTable = null;
+    System.out.println(this.item);
     this.markDirty();
   }
 }
