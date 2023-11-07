@@ -11,9 +11,9 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.entity.BrushableBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.tag.InstrumentTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.collection.IndexedIterable;
@@ -76,10 +76,10 @@ public abstract class SuspiciousBlockMixin extends BlockEntity {
     final IndexedIterable<RegistryEntry<Instrument>> instruments =
         Registries.INSTRUMENT.getIndexedEntries();
     while (instruments.iterator().hasNext()) {
-      final GoatHornItem item =
-          new GoatHornItem(new Item.Settings().maxCount(1), InstrumentTags.GOAT_HORNS);
       final RegistryEntry<Instrument> entry = instruments.iterator().next();
-      final ItemStack stack = GoatHornItem.getStackForInstrument(item, entry);
+      final ItemStack stack = new ItemStack(Items.GOAT_HORN);
+      final NbtCompound nbtCompound = stack.getOrCreateNbt();
+      nbtCompound.putString("instrument", entry.getKey().orElseThrow().getValue().toString());
       SAND_DROPS.add(stack);
     }
   }
@@ -135,11 +135,12 @@ public abstract class SuspiciousBlockMixin extends BlockEntity {
     final BlockState state = this.getCachedState();
     if (state.isOf(Blocks.SUSPICIOUS_GRAVEL)) {
       final int index = RANDOM.nextInt(GRAVEL_DROPS.size());
-      this.item = GRAVEL_DROPS.get(index);
+      this.item = GRAVEL_DROPS.get(index).copy();
     } else if (state.isOf(Blocks.SUSPICIOUS_SAND)) {
       final int index = RANDOM.nextInt(SAND_DROPS.size());
-      this.item = SAND_DROPS.get(index);
+      this.item = SAND_DROPS.get(index).copy();
     }
+    this.lootTable = null;
     this.markDirty();
   }
 }
