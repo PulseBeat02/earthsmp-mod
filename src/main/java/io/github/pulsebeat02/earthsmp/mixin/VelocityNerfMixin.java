@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public abstract class VelocityNerfMixin {
 
   @ModifyArg(
-      method = "Lnet/minecraft/entity/LivingEntity;travel(Lnet/minecraft/util/math/Vec3d;)V",
+      method = "travel",
       at =
           @At(
               value = "INVOKE",
