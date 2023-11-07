@@ -1,22 +1,30 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "ingredients": [
-        {
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#G#",
+        "TNE",
+        "#D#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:egg"
+        },
+        "G": {
             "item": "minecraft:gold_block"
         },
-        {
+        "T": {
             "item": "minecraft:totem_of_undying"
         },
-        {
+        "N": {
             "item": "minecraft:nether_star"
         },
-        {
+        "E": {
             "item": "minecraft:enchanted_golden_apple"
         },
-        {
+        "D": {
             "item": "minecraft:diamond_block"
         }
-    ],
+    },
     "result": {
         "item": "minecraft:villager_spawn_egg",
         "count": 1
