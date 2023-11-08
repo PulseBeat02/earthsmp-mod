@@ -9,7 +9,7 @@ import net.minecraft.loot.LootTables;
 public final class EndCityCrate extends LootCrate {
 
   public EndCityCrate() {
-    super(Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 3);
+    super(Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 2);
   }
 
   @Override
