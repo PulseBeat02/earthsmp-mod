@@ -11,15 +11,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class VelocityNerfMixin {
 
   @Inject(
-          method = "travel",
-          at =
+      method = "travel",
+      at =
           @At(
-                  value = "INVOKE",
-                  target = "Lnet/minecraft/entity/LivingEntity;limitFallDistance()V",
-                  shift = At.Shift.AFTER))
-  private void nerfElytraVelocity(
-          @NotNull final Vec3d movementInput, @NotNull final CallbackInfo ci) {
+              value = "INVOKE",
+              target =
+                  "Lnet/minecraft/entity/LivingEntity;setVelocity(Lnet/minecraft/util/math/Vec3d;)V",
+              ordinal = 6,
+              shift = At.Shift.AFTER))
+  private void nerfElytraVelocity(@NotNull final Vec3d movement, @NotNull final CallbackInfo ci) {
     final LivingEntity entity = (LivingEntity) (Object) this;
-    entity.setVelocity(entity.getVelocity().multiply(0.05));
+    final Vec3d vec = entity.getVelocity();
+    System.out.println("Old: " + vec);
+    final Vec3d newVec = vec.multiply(10E-5);
+    entity.setVelocity(newVec);
+    System.out.println("New: " + newVec);
   }
 }
