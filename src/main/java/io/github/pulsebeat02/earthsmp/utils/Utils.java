@@ -93,13 +93,4 @@ public final class Utils {
     return (int) (RANDOM.nextDouble() * (bottomRight.getRight() - topLeft.getRight()))
         + topLeft.getRight();
   }
-
-  public static @NotNull <T extends Enum<?>> T randomEnum(@NotNull final Class<T> clazz) {
-    final int index = RANDOM.nextInt(clazz.getEnumConstants().length);
-    return clazz.getEnumConstants()[index];
-  }
-
-  public static @NotNull Vec3d cloneVector(@NotNull final Vec3d vector) {
-    return new Vec3d(vector.getX(), vector.getY(), vector.getZ());
-  }
 }

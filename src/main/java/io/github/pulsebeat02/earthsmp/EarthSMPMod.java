@@ -17,7 +17,7 @@ public class EarthSMPMod implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    LOGGER.info("Initializing EarthSMP Fabric Mod");
+    LOGGER.info("Initializing SMP Earth...");
     this.registerCrates();
   }
 
