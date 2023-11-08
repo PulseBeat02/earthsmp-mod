@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ServerWorld.class)
 public final class StrongerMobsMixin {
   @Inject(at = @At("TAIL"), method = "spawnEntity")
-  public void spawnEntity(
+  private void spawnBuffedAfricaEntity(
       @NotNull final Entity entity, @NotNull final CallbackInfoReturnable<Boolean> cir) {
     if (!(entity instanceof final HostileEntity hostile)) {
       return;

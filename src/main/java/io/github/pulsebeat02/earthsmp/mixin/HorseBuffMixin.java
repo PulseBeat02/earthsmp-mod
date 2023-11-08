@@ -44,6 +44,7 @@ public final class HorseBuffMixin {
         * 0.25;
   }
 
+  @Unique
   private static float getChildHealthBonus(@NotNull final IntUnaryOperator randomIntGetter) {
     return 15.0f + (float) randomIntGetter.applyAsInt(8) + (float) randomIntGetter.applyAsInt(9);
   }

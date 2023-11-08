@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public final class ServerMixin {
 
   @Inject(method = "runServer", at = @At("TAIL"))
-  private void serverLoaded(@NotNull final CallbackInfo ci) {
+  private void assignMinecraftServer(@NotNull final CallbackInfo ci) {
     final MinecraftServer server = (MinecraftServer) (Object) this;
     EarthSMPMod.setServer(server);
   }

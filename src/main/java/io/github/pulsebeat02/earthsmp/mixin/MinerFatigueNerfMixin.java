@@ -26,7 +26,7 @@ public final class MinerFatigueNerfMixin {
   }
 
   @Inject(at = @At("HEAD"), method = "playerTick")
-  public void tick(@NotNull final CallbackInfo ci) {
+  private void applyMinerFatigueEffect(@NotNull final CallbackInfo ci) {
     final long now = System.currentTimeMillis();
     if (now - this.ms < 15000L) {
       this.ms = now;

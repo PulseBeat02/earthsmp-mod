@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public final class CreeperEffectMixin {
 
   @Inject(at = @At("HEAD"), method = "spawnEffectsCloud", cancellable = true)
-  private void spawnEffectsCloud(@NotNull final CallbackInfo ci) {
+  private void removeEffectsCloud(@NotNull final CallbackInfo ci) {
     final CreeperEntity entity = (CreeperEntity) (Object) this;
     final BlockPos pos = entity.getBlockPos();
     final int x = pos.getX();
