@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CreeperEffectMixin",
+    "DragonEggContainerMixin",
     "ElytraWornNerfMixin",
     "FireworkNerfMixin",
     "HorseBuffMixin",
@@ -11,8 +12,8 @@
     "NerfVillagerMixin",
     "ServerMixin",
     "StrongerMobsMixin",
-    "VelocityNerfMixin",
-    "SuspiciousBlockMixin"
+    "SuspiciousBlockMixin",
+    "VelocityNerfMixin"
   ],
   "injectors": {
     "defaultRequire": 1
