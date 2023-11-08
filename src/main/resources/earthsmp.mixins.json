@@ -6,7 +6,7 @@
     "CreeperEffectMixin",
     "DragonEggContainerMixin",
     "ElytraWornNerfMixin",
-    "FireworkNerfMixin",
+    "FireworkItemMixin",
     "HorseBuffMixin",
     "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
