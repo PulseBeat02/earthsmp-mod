@@ -21,8 +21,8 @@ public final class FireworkItemMixin {
       at =
           @At(
               value = "INVOKE",
-              target =
-                  "Lnet/minecraft/entity/LivingEntity;getRotationVector()Lnet/minecraft/util/math/Vec3d;"))
+              target = "Lnet/minecraft/entity/LivingEntity;isFallFlying()Z",
+              shift = At.Shift.AFTER))
   public void nerfShooterVelocity(@NotNull final CallbackInfo ci) {
     final Vec3d rotation = this.shooter.getRotationVector().multiply(0.5);
     final Vec3d velocity = this.shooter.getVelocity().multiply(0.5);

@@ -1,7 +1,8 @@
 package io.github.pulsebeat02.earthsmp.mixin;
 
-import it.unimi.dsi.fastutil.objects.ObjectCollection;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.c2s.play.ClickSlotC2SPacket;
@@ -15,10 +16,6 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 @Mixin(ServerPlayNetworkHandler.class)
 public final class DragonEggContainerMixin {
