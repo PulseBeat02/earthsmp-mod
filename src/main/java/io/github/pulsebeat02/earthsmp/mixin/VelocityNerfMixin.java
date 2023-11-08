@@ -19,7 +19,7 @@ public abstract class VelocityNerfMixin {
   @Inject(at = @At("HEAD"), method = "move")
   private void nerfElytraVelocity(
       @NotNull final MovementType movementType,
-      @NotNull final Vec3d movement,
+      @NotNull Vec3d movement,
       @NotNull final CallbackInfo ci) {
     final Entity entity = (Entity) (Object) this;
     if (!(entity instanceof final LivingEntity livingEntity)) {
@@ -35,6 +35,6 @@ public abstract class VelocityNerfMixin {
     if (!ElytraItem.isUsable(itemStack)) {
       return;
     }
-    movement.multiply(0.05);
+    movement = movement.multiply(0.05);
   }
 }
