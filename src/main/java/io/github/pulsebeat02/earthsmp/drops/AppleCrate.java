@@ -6,11 +6,10 @@ import io.github.pulsebeat02.earthsmp.Continent;
 import io.github.pulsebeat02.earthsmp.utils.Utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.loot.LootTables;
 
-public final class AncientCityCrate extends LootCrate {
+public final class AppleCrate extends LootCrate {
 
-  public AncientCityCrate() {
+  public AppleCrate() {
     super(Continent.EU, new ItemStack(Items.ENCHANTED_GOLDEN_APPLE), 1);
   }
 

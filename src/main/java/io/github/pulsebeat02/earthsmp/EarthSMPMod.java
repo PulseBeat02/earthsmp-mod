@@ -1,8 +1,8 @@
 package io.github.pulsebeat02.earthsmp;
 
-import io.github.pulsebeat02.earthsmp.drops.AncientCityCrate;
+import io.github.pulsebeat02.earthsmp.drops.AppleCrate;
 import io.github.pulsebeat02.earthsmp.drops.TotemCrate;
-import io.github.pulsebeat02.earthsmp.drops.EndCityCrate;
+import io.github.pulsebeat02.earthsmp.drops.SmithingCrate;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.server.MinecraftServer;
@@ -22,9 +22,9 @@ public class EarthSMPMod implements ModInitializer {
   }
 
   private void registerCrates() {
-    new AncientCityCrate();
+    new AppleCrate();
     new TotemCrate();
-    new EndCityCrate();
+    new SmithingCrate();
   }
 
   public static @NotNull MinecraftServer getServer() {

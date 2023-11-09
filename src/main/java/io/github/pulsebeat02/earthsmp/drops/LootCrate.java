@@ -6,7 +6,6 @@ import io.github.pulsebeat02.earthsmp.utils.Utils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -24,7 +23,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public abstract sealed class LootCrate permits AncientCityCrate, TotemCrate, EndCityCrate {
+public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingCrate {
 
   private static final ExecutorService SERVICE;
 
@@ -34,25 +33,14 @@ public abstract sealed class LootCrate permits AncientCityCrate, TotemCrate, End
   }
 
   private @NotNull final Continent continent;
-  private @Nullable Identifier lootTableId;
-  private @Nullable ItemStack stack;
+  private @NotNull final ItemStack stack;
   private final int count;
 
   public LootCrate(
-      @NotNull final Continent continent, @NotNull final Identifier lootTableId, final int count) {
-    this(continent, count);
-    this.lootTableId = lootTableId;
-  }
-
-  public LootCrate(
       @NotNull final Continent continent, @NotNull final ItemStack stack, final int count) {
-    this(continent, count);
-    this.stack = stack;
-  }
-
-  private LootCrate(@NotNull final Continent continent, final int count) {
     this.continent = continent;
     this.count = count;
+    this.stack = stack;
     this.spawn();
   }
 
@@ -86,17 +74,13 @@ public abstract sealed class LootCrate permits AncientCityCrate, TotemCrate, End
     final World world = server.getOverworld();
     final BlockEntity blockEntity = world.getBlockEntity(pos);
     if (blockEntity instanceof final ChestBlockEntity chestEntity) {
-      if (this.lootTableId == null) {
-        chestEntity.setStack(13, this.stack);
-      } else {
-        chestEntity.setLootTable(this.lootTableId, world.random.nextLong());
-      }
+      chestEntity.setStack(13, this.stack);
     }
   }
 
   private void waitTime() {
     try {
-      Thread.sleep(15 * 60 * 1000L);
+      Thread.sleep(30 * 60 * 1000L);
     } catch (final InterruptedException ignored) {
     }
   }
@@ -107,7 +91,7 @@ public abstract sealed class LootCrate permits AncientCityCrate, TotemCrate, End
     final List<ServerPlayerEntity> players = manager.getPlayerList();
     for (final PlayerEntity player : players) {
       final String raw =
-          "A loot crate will spawn at %d, %d, %d in 15 minutes!"
+          "A loot crate will spawn at %d, %d, %d in 30 minutes!"
               .formatted(pos.getX(), pos.getY(), pos.getZ());
       final TextContent literal = new LiteralTextContent(raw);
       final MutableText text = MutableText.of(literal);

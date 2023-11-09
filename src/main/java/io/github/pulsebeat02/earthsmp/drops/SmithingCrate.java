@@ -4,12 +4,13 @@ import static java.util.Calendar.SUNDAY;
 
 import io.github.pulsebeat02.earthsmp.Continent;
 import io.github.pulsebeat02.earthsmp.utils.Utils;
-import net.minecraft.loot.LootTables;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
-public final class EndCityCrate extends LootCrate {
+public final class SmithingCrate extends LootCrate {
 
-  public EndCityCrate() {
-    super(Continent.NA, LootTables.END_CITY_TREASURE_CHEST, 2);
+  public SmithingCrate() {
+    super(Continent.NA, new ItemStack(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE), 2);
   }
 
   @Override
