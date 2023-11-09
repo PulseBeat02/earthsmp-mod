@@ -68,7 +68,6 @@ public final class StrongerMobsMixin {
 
   @Unique
   private void setLootOptions(@NotNull final HostileEntity entity) {
-    entity.setCanPickUpLoot(true);
     for (final EquipmentSlot slot : EquipmentSlot.values()) {
       entity.setEquipmentDropChance(slot, 0);
     }
@@ -97,7 +96,7 @@ public final class StrongerMobsMixin {
   private void addStatusEffects(@NotNull final HostileEntity entity) {
     final StatusEffectInstance[] effects =
         new StatusEffectInstance[] {
-          new StatusEffectInstance(StatusEffects.HEALTH_BOOST, Integer.MAX_VALUE, 4),
+          new StatusEffectInstance(StatusEffects.HEALTH_BOOST, Integer.MAX_VALUE, 3),
           new StatusEffectInstance(StatusEffects.JUMP_BOOST, Integer.MAX_VALUE, 2),
           new StatusEffectInstance(StatusEffects.RESISTANCE, Integer.MAX_VALUE, 0),
           new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 3)

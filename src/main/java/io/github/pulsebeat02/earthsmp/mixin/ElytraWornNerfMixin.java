@@ -10,6 +10,6 @@ public abstract class ElytraWornNerfMixin {
   
   @ModifyConstant(method = "tickFallFlying", constant = @Constant(intValue = 1, ordinal = 2))
   private int nerfElytraDurability(final int constant) {
-    return 3;
+    return 4;
   }
 }
