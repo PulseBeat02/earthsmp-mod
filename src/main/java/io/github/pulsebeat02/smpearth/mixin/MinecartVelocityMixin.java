@@ -1,4 +1,4 @@
-package io.github.pulsebeat02.earthsmp.mixin;
+package io.github.pulsebeat02.smpearth.mixin;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.AbstractRailBlock;

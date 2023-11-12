@@ -1,4 +1,4 @@
-package io.github.pulsebeat02.earthsmp.mixin;
+package io.github.pulsebeat02.smpearth.mixin;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package io.github.pulsebeat02.earthsmp.mixin;
+package io.github.pulsebeat02.smpearth.mixin;
 
 import net.minecraft.entity.projectile.FireworkRocketEntity;
 import org.jetbrains.annotations.NotNull;

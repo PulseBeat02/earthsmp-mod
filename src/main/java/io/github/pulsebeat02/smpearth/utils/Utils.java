@@ -1,17 +1,15 @@
-package io.github.pulsebeat02.earthsmp.utils;
+package io.github.pulsebeat02.smpearth.utils;
 
-import io.github.pulsebeat02.earthsmp.Continent;
-import io.github.pulsebeat02.earthsmp.EarthSMPMod;
+import io.github.pulsebeat02.smpearth.Continent;
+import io.github.pulsebeat02.smpearth.SMPEarth;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.ZonedDateTime;
-import java.util.Calendar;
 import java.util.SplittableRandom;
 
 public final class Utils {
@@ -63,7 +61,7 @@ public final class Utils {
     while (true) {
       final int x = generateRandomX(topLeft, bottomRight);
       final int z = generateRandomZ(topLeft, bottomRight);
-      final MinecraftServer server = EarthSMPMod.getServer();
+      final MinecraftServer server = SMPEarth.getServer();
       final World world = server.getOverworld();
       BlockPos pos = null;
       for (int y = 255; y > -60; y--) {

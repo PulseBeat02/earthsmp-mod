@@ -1,8 +1,8 @@
-package io.github.pulsebeat02.earthsmp;
+package io.github.pulsebeat02.smpearth;
 
-import io.github.pulsebeat02.earthsmp.drops.AppleCrate;
-import io.github.pulsebeat02.earthsmp.drops.TotemCrate;
-import io.github.pulsebeat02.earthsmp.drops.SmithingCrate;
+import io.github.pulsebeat02.smpearth.drops.AppleCrate;
+import io.github.pulsebeat02.smpearth.drops.TotemCrate;
+import io.github.pulsebeat02.smpearth.drops.SmithingCrate;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.server.MinecraftServer;
@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class EarthSMPMod implements ModInitializer {
+public class SMPEarth implements ModInitializer {
 
-  public static final Logger LOGGER = LoggerFactory.getLogger("earthsmp");
+  public static final Logger LOGGER = LoggerFactory.getLogger("smpearth");
   private static MinecraftServer SERVER;
 
   @Override

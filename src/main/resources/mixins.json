@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "io.github.pulsebeat02.earthsmp.mixin",
+  "package": "io.github.pulsebeat02.smpearth.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "CreeperEffectMixin",

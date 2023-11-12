@@ -1,7 +1,7 @@
-package io.github.pulsebeat02.earthsmp.mixin;
+package io.github.pulsebeat02.smpearth.mixin;
 
-import io.github.pulsebeat02.earthsmp.Continent;
-import io.github.pulsebeat02.earthsmp.utils.Utils;
+import io.github.pulsebeat02.smpearth.Continent;
+import io.github.pulsebeat02.smpearth.utils.Utils;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.util.math.BlockPos;
 import org.jetbrains.annotations.NotNull;

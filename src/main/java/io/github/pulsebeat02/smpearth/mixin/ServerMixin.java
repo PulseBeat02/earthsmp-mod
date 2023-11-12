@@ -1,6 +1,6 @@
-package io.github.pulsebeat02.earthsmp.mixin;
+package io.github.pulsebeat02.smpearth.mixin;
 
-import io.github.pulsebeat02.earthsmp.EarthSMPMod;
+import io.github.pulsebeat02.smpearth.SMPEarth;
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +14,6 @@ public final class ServerMixin {
   @Inject(method = "runServer", at = @At("TAIL"))
   private void assignMinecraftServer(@NotNull final CallbackInfo ci) {
     final MinecraftServer server = (MinecraftServer) (Object) this;
-    EarthSMPMod.setServer(server);
+    SMPEarth.setServer(server);
   }
 }

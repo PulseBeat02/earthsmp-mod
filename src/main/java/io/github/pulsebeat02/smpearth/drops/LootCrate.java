@@ -1,8 +1,8 @@
-package io.github.pulsebeat02.earthsmp.drops;
+package io.github.pulsebeat02.smpearth.drops;
 
-import io.github.pulsebeat02.earthsmp.Continent;
-import io.github.pulsebeat02.earthsmp.EarthSMPMod;
-import io.github.pulsebeat02.earthsmp.utils.Utils;
+import io.github.pulsebeat02.smpearth.Continent;
+import io.github.pulsebeat02.smpearth.SMPEarth;
+import io.github.pulsebeat02.smpearth.utils.Utils;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,11 +12,9 @@ import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -70,7 +68,7 @@ public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingC
   private void spawnChest(@NotNull final BlockPos pos) {
     this.broadcastMessage(pos);
     this.waitTime();
-    final MinecraftServer server = EarthSMPMod.getServer();
+    final MinecraftServer server = SMPEarth.getServer();
     final World world = server.getOverworld();
     final BlockEntity blockEntity = world.getBlockEntity(pos);
     if (blockEntity instanceof final ChestBlockEntity chestEntity) {
@@ -86,7 +84,7 @@ public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingC
   }
 
   private void broadcastMessage(@NotNull final BlockPos pos) {
-    final MinecraftServer server = EarthSMPMod.getServer();
+    final MinecraftServer server = SMPEarth.getServer();
     final PlayerManager manager = server.getPlayerManager();
     final List<ServerPlayerEntity> players = manager.getPlayerList();
     for (final PlayerEntity player : players) {

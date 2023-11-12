@@ -1,9 +1,9 @@
-package io.github.pulsebeat02.earthsmp.drops;
+package io.github.pulsebeat02.smpearth.drops;
 
 import static java.util.Calendar.SATURDAY;
 
-import io.github.pulsebeat02.earthsmp.Continent;
-import io.github.pulsebeat02.earthsmp.utils.Utils;
+import io.github.pulsebeat02.smpearth.Continent;
+import io.github.pulsebeat02.smpearth.utils.Utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 

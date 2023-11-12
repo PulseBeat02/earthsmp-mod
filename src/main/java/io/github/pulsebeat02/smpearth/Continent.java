@@ -1,4 +1,4 @@
-package io.github.pulsebeat02.earthsmp;
+package io.github.pulsebeat02.smpearth;
 
 import net.minecraft.util.Pair;
 

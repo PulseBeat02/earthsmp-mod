@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "earthsmp",
+  "id": "smpearth",
   "version": "${version}",
-  "name": "EarthSMP",
+  "name": "SMP Earth",
   "description": "Official plugin for SMP Earth",
   "authors": [
     "PulseBeat_02"
@@ -12,19 +12,15 @@
     "sources": "https://github.com/FabricMC/fabric-example-mod"
   },
   "license": "CC0-1.0",
-  "icon": "assets/earthsmp/icon.png",
+  "icon": "assets/smpearth/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.pulsebeat02.earthsmp.EarthSMPMod"
+      "io.github.pulsebeat02.smpearth.SMPEarth"
     ]
   },
   "mixins": [
-    "earthsmp.mixins.json",
-    {
-      "config": "earthsmp.client.mixins.json",
-      "environment": "client"
-    }
+    "mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.22",
