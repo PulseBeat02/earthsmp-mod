@@ -12,7 +12,8 @@
     "NerfVillagerMixin",
     "ServerMixin",
     "StrongerMobsMixin",
-    "SuspiciousBlockMixin"
+    "SuspiciousBlockMixin",
+    "MinecartVelocityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
