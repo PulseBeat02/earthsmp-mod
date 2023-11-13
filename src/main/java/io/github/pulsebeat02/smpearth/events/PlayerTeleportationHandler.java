@@ -3,23 +3,28 @@ package io.github.pulsebeat02.smpearth.events;
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.utils.Utils;
 import java.util.*;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.TeleportTarget;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public final class PlayerTeleportationHandler {
 
   private static final Queue<UUID> PLAYER_QUEUE;
+  private static final ExecutorService EXECUTOR;
 
   static {
-    PLAYER_QUEUE = new ArrayDeque<>();
+    PLAYER_QUEUE = new ConcurrentLinkedQueue<>();
+    EXECUTOR = Executors.newCachedThreadPool();
+    Runtime.getRuntime().addShutdownHook(new Thread(EXECUTOR::shutdown));
   }
 
   public PlayerTeleportationHandler() {
@@ -40,31 +45,30 @@ public final class PlayerTeleportationHandler {
     if (player == null) {
       return;
     }
-    final ServerWorld world = player.getServerWorld();
+    final World world = player.getWorld();
     final BlockPos pos = player.getBlockPos();
     if (!world.isChunkLoaded(pos)) {
       return;
     }
-    final BlockPos randPos = createRandomPosition();
-    teleportPlayer(randPos, player);
     PLAYER_QUEUE.poll();
+    CompletableFuture.supplyAsync(this::createRandomPosition)
+        .thenAccept(rand -> this.teleport(player, rand));
   }
 
-  private static void teleportPlayer(
-      @NotNull final BlockPos randPos, @NotNull final ServerPlayerEntity player) {
-    final ServerWorld world = player.getServerWorld();
-    final Vec3d vec = new Vec3d(randPos.getX(), randPos.getY(), randPos.getZ());
-    final Vec3d velocity = new Vec3d(0, 0, 0);
-    final TeleportTarget target = new TeleportTarget(vec, velocity, 0, 0);
-    FabricDimensions.teleport(player, world, target);
+  private void teleport(@NotNull final ServerPlayerEntity player, @NotNull final BlockPos pos) {
+    player.teleport(pos.getX(), pos.getY(), pos.getZ());
+    player.setSpawnPoint(World.OVERWORLD, pos, 0, false, false);
   }
 
-  private static @NotNull BlockPos createRandomPosition() {
+  private @NotNull BlockPos createRandomPosition() {
     final Continent random = Utils.getRandomEnum(Continent.class);
     return Utils.generateRandomPosition(random);
   }
 
   public static void addPlayerToQueue(@NotNull final UUID uuid) {
+    if (PLAYER_QUEUE.contains(uuid)) {
+      return;
+    }
     PLAYER_QUEUE.add(uuid);
   }
 }

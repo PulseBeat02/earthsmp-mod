@@ -23,11 +23,11 @@ import java.util.concurrent.Executors;
 
 public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingCrate {
 
-  private static final ExecutorService SERVICE;
+  private static final ExecutorService EXECUTOR;
 
   static {
-    SERVICE = Executors.newCachedThreadPool();
-    Runtime.getRuntime().addShutdownHook(new Thread(SERVICE::shutdown));
+    EXECUTOR = Executors.newCachedThreadPool();
+    Runtime.getRuntime().addShutdownHook(new Thread(EXECUTOR::shutdown));
   }
 
   private @NotNull final Continent continent;
@@ -43,7 +43,7 @@ public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingC
   }
 
   private void spawn() {
-    CompletableFuture.runAsync(this::checks, SERVICE);
+    CompletableFuture.runAsync(this::checks, EXECUTOR);
   }
 
   private void checks() {
