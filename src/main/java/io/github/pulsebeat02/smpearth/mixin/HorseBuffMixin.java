@@ -17,16 +17,16 @@ public final class HorseBuffMixin {
   @Mutable @Final @Shadow private static float MAX_HEALTH_BONUS;
 
   static {
-    MIN_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonus(() -> 1.0);
-    MAX_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonus(() -> 2.0);
-    MIN_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonus(() -> 1.0);
-    MAX_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonus(() -> 2.0);
-    MIN_HEALTH_BONUS = getChildHealthBonus(max -> max - 1);
-    MAX_HEALTH_BONUS = getChildHealthBonus(max -> 2 * (max - 1));
+    MIN_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 1.0);
+    MAX_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 2.0);
+    MIN_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 1.0);
+    MAX_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 2.0);
+    MIN_HEALTH_BONUS = getChildHealthBonusRaw(max -> max - 1);
+    MAX_HEALTH_BONUS = getChildHealthBonusRaw(max -> 2 * (max - 1));
   }
 
   @Unique
-  private static double getChildJumpStrengthBonus(
+  private static double getChildJumpStrengthBonusRaw(
       @NotNull final DoubleSupplier randomDoubleGetter) {
     return (double) 0.4f
         + randomDoubleGetter.getAsDouble() * 0.2
@@ -35,7 +35,7 @@ public final class HorseBuffMixin {
   }
 
   @Unique
-  private static double getChildMovementSpeedBonus(
+  private static double getChildMovementSpeedBonusRaw(
       @NotNull final DoubleSupplier randomDoubleGetter) {
     return ((double) 0.45f
             + randomDoubleGetter.getAsDouble() * 0.3
@@ -45,7 +45,7 @@ public final class HorseBuffMixin {
   }
 
   @Unique
-  private static float getChildHealthBonus(@NotNull final IntUnaryOperator randomIntGetter) {
+  private static float getChildHealthBonusRaw(@NotNull final IntUnaryOperator randomIntGetter) {
     return 15.0f + (float) randomIntGetter.applyAsInt(8) + (float) randomIntGetter.applyAsInt(9);
   }
 }
