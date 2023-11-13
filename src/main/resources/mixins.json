@@ -8,12 +8,14 @@
     "ElytraWornNerfMixin",
     "FireworkItemMixin",
     "HorseBuffMixin",
+    "MinecartVelocityMixin",
     "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
+    "PlayerEntityMixin",
     "ServerMixin",
+    "ServerPlayerEntityMixin",
     "StrongerMobsMixin",
-    "SuspiciousBlockMixin",
-    "MinecartVelocityMixin"
+    "SuspiciousBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
