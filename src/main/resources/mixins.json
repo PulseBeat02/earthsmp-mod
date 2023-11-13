@@ -12,6 +12,7 @@
     "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
     "PlayerEntityMixin",
+    "PlayerManagerMixin",
     "ServerMixin",
     "ServerPlayerEntityMixin",
     "StrongerMobsMixin",

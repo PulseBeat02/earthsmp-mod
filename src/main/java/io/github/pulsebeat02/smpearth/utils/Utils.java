@@ -57,38 +57,35 @@ public final class Utils {
   public static @NotNull BlockPos generateRandomPosition(@NotNull final Continent continent) {
     final Pair<Integer, Integer> topLeft = continent.getTopLeft();
     final Pair<Integer, Integer> bottomRight = continent.getBottomRight();
-    outer:
-    while (true) {
-      final int x = generateRandomX(topLeft, bottomRight);
-      final int z = generateRandomZ(topLeft, bottomRight);
-      final MinecraftServer server = SMPEarth.getServer();
-      final World world = server.getOverworld();
-      BlockPos pos = null;
-      for (int y = 255; y > -60; y--) {
-        pos = new BlockPos(x, y, z);
-        final BlockState state = world.getBlockState(pos);
-        if (state.isAir()) {
-          continue;
-        }
-        if (state.isLiquid()) {
-          continue outer;
-        }
+    final int x = generateRandomX(topLeft, bottomRight);
+    final int z = generateRandomZ(topLeft, bottomRight);
+    final MinecraftServer server = SMPEarth.getServer();
+    final World world = server.getOverworld();
+    BlockPos pos = null;
+    for (int y = 255; y > -60; y--) {
+      pos = new BlockPos(x, y, z);
+      final BlockState state = world.getBlockState(pos);
+      if (!state.isAir()) {
+        break;
       }
-      return pos.add(0, 1, 0);
     }
+    return pos.add(0, 1, 0);
   }
 
   private static int generateRandomX(
       @NotNull final Pair<Integer, Integer> topLeft,
       @NotNull final Pair<Integer, Integer> bottomRight) {
-    return (int) (RANDOM.nextDouble() * (bottomRight.getLeft() - topLeft.getLeft()))
-        + topLeft.getLeft();
+    return RANDOM.nextInt(topLeft.getLeft(), bottomRight.getLeft());
   }
 
   private static int generateRandomZ(
       @NotNull final Pair<Integer, Integer> topLeft,
       @NotNull final Pair<Integer, Integer> bottomRight) {
-    return (int) (RANDOM.nextDouble() * (bottomRight.getRight() - topLeft.getRight()))
-        + topLeft.getRight();
+    return RANDOM.nextInt(topLeft.getRight(), bottomRight.getRight());
+  }
+
+  public static @NotNull <T extends Enum<?>> T getRandomEnum(@NotNull final Class<T> clazz) {
+    final int index = RANDOM.nextInt(clazz.getEnumConstants().length);
+    return clazz.getEnumConstants()[index];
   }
 }
