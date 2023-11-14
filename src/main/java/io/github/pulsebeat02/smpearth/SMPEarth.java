@@ -4,6 +4,7 @@ import io.github.pulsebeat02.smpearth.drops.AppleCrate;
 import io.github.pulsebeat02.smpearth.drops.TotemCrate;
 import io.github.pulsebeat02.smpearth.drops.SmithingCrate;
 import io.github.pulsebeat02.smpearth.events.PlayerTeleportationHandler;
+import io.github.pulsebeat02.smpearth.utils.Utils;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.server.MinecraftServer;
@@ -18,9 +19,14 @@ public class SMPEarth implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    LOGGER.info("Initializing SMP Earth...");
     this.registerCrates();
     this.registerEvents();
+    this.registerStaticBlocks();
+    LOGGER.info("SMP Earth has been loaded!");
+  }
+
+  private void registerStaticBlocks() {
+    Utils.generateRandomPlayerPosition();
   }
 
   private void registerCrates() {

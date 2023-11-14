@@ -10,14 +10,18 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.ZonedDateTime;
+import java.util.Queue;
 import java.util.SplittableRandom;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public final class Utils {
 
   private static final SplittableRandom RANDOM;
+  private static final Queue<BlockPos> SURFACE_CACHE;
 
   static {
     RANDOM = new SplittableRandom();
+    SURFACE_CACHE = new ConcurrentLinkedQueue<>();
   }
 
   private Utils() {
@@ -54,7 +58,20 @@ public final class Utils {
         && time.getMinute() == minute;
   }
 
-  public static @NotNull BlockPos generateRandomPosition(@NotNull final Continent continent) {
+  public static @NotNull BlockPos generateRandomPlayerPosition() {
+    final BlockPos pos = SURFACE_CACHE.poll();
+    if (pos != null) {
+      return pos;
+    }
+    for (int i = 0; i < 100; i++) {
+      final Continent cont = getRandomEnum(Continent.class);
+      final BlockPos rand = generateRandomPositionRaw(cont);
+      SURFACE_CACHE.add(rand);
+    }
+    return SURFACE_CACHE.poll();
+  }
+
+  public static @NotNull BlockPos generateRandomPositionRaw(@NotNull final Continent continent) {
     final Pair<Integer, Integer> topLeft = continent.getTopLeft();
     final Pair<Integer, Integer> bottomRight = continent.getBottomRight();
     final int x = generateRandomX(topLeft, bottomRight);

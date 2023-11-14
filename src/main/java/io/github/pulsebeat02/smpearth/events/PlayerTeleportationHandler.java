@@ -61,8 +61,7 @@ public final class PlayerTeleportationHandler {
   }
 
   private @NotNull BlockPos createRandomPosition() {
-    final Continent random = Utils.getRandomEnum(Continent.class);
-    return Utils.generateRandomPosition(random);
+    return Utils.generateRandomPlayerPosition();
   }
 
   public static void addPlayerToQueue(@NotNull final UUID uuid) {
