@@ -49,7 +49,7 @@ public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingC
   private void checks() {
     this.block();
     for (int i = 0; i < this.count; i++) {
-      final BlockPos pos = Utils.generateRandomPosition(this.continent);
+      final BlockPos pos = Utils.generateRandomPositionRaw(this.continent);
       this.spawnChest(pos);
     }
   }
