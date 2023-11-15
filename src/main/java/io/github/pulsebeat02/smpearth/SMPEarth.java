@@ -1,18 +1,16 @@
 package io.github.pulsebeat02.smpearth;
 
 import io.github.pulsebeat02.smpearth.drops.AppleCrate;
-import io.github.pulsebeat02.smpearth.drops.TotemCrate;
 import io.github.pulsebeat02.smpearth.drops.SmithingCrate;
+import io.github.pulsebeat02.smpearth.drops.TotemCrate;
 import io.github.pulsebeat02.smpearth.events.PlayerTeleportationHandler;
-import io.github.pulsebeat02.smpearth.utils.Utils;
 import net.fabricmc.api.ModInitializer;
-
 import net.minecraft.server.MinecraftServer;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class SMPEarth implements ModInitializer {
+public final class SMPEarth implements ModInitializer {
 
   public static final Logger LOGGER = LoggerFactory.getLogger("smpearth");
   private static MinecraftServer SERVER;
@@ -21,7 +19,7 @@ public class SMPEarth implements ModInitializer {
   public void onInitialize() {
     this.registerCrates();
     this.registerEvents();
-    LOGGER.info("SMP Earth has been loaded!");
+    LOGGER.info("[SMP Earth] Mod has been loaded!");
   }
 
   private void registerCrates() {

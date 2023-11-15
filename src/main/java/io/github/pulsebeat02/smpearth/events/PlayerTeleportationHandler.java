@@ -1,13 +1,11 @@
 package io.github.pulsebeat02.smpearth.events;
 
-import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.utils.Utils;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -19,12 +17,9 @@ import org.jetbrains.annotations.NotNull;
 public final class PlayerTeleportationHandler {
 
   private static final Queue<UUID> PLAYER_QUEUE;
-  private static final ExecutorService EXECUTOR;
 
   static {
     PLAYER_QUEUE = new ConcurrentLinkedQueue<>();
-    EXECUTOR = Executors.newCachedThreadPool();
-    Runtime.getRuntime().addShutdownHook(new Thread(EXECUTOR::shutdown));
   }
 
   public PlayerTeleportationHandler() {
@@ -50,18 +45,14 @@ public final class PlayerTeleportationHandler {
     if (!world.isChunkLoaded(pos)) {
       return;
     }
-    PLAYER_QUEUE.poll();
-    CompletableFuture.supplyAsync(this::createRandomPosition)
-        .thenAccept(rand -> this.teleport(player, rand));
+    CompletableFuture.supplyAsync(Utils::generateRandomPlayerPosition)
+        .thenAccept(rand -> this.teleport(player, rand))
+        .thenRun(PLAYER_QUEUE::poll);
   }
 
   private void teleport(@NotNull final ServerPlayerEntity player, @NotNull final BlockPos pos) {
     player.teleport(pos.getX(), pos.getY(), pos.getZ());
     player.setSpawnPoint(World.OVERWORLD, pos, 0, false, false);
-  }
-
-  private @NotNull BlockPos createRandomPosition() {
-    return Utils.generateRandomPlayerPosition();
   }
 
   public static void addPlayerToQueue(@NotNull final UUID uuid) {

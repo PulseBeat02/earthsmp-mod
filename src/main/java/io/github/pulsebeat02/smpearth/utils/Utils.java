@@ -2,15 +2,11 @@ package io.github.pulsebeat02.smpearth.utils;
 
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.SMPEarth;
+import io.github.pulsebeat02.smpearth.XYPos;
 import java.time.ZonedDateTime;
-import java.util.Queue;
 import java.util.SplittableRandom;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.stream.IntStream;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -18,11 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public final class Utils {
 
   private static final SplittableRandom RANDOM;
-  private static final Queue<BlockPos> SURFACE_CACHE;
 
   static {
     RANDOM = new SplittableRandom();
-    SURFACE_CACHE = new ConcurrentLinkedQueue<>();
   }
 
   private Utils() {
@@ -31,25 +25,21 @@ public final class Utils {
 
   public static boolean withinContinent(
       @NotNull final Continent continent, final int x, final int z) {
-    final Pair<Integer, Integer> topLeft = continent.getTopLeft();
-    final Pair<Integer, Integer> bottomRight = continent.getBottomRight();
+    final XYPos topLeft = continent.getTopLeft();
+    final XYPos bottomRight = continent.getBottomRight();
     final boolean withinX = checkXCoordinate(topLeft, bottomRight, x);
     final boolean withinZ = checkZCoordinate(topLeft, bottomRight, z);
     return withinX && withinZ;
   }
 
   private static boolean checkXCoordinate(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight,
-      final int x) {
-    return x > topLeft.getLeft() && x < bottomRight.getLeft();
+      @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight, final int x) {
+    return x > topLeft.x() && x < bottomRight.x();
   }
 
   private static boolean checkZCoordinate(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight,
-      final int z) {
-    return z > topLeft.getRight() && z < bottomRight.getRight();
+      @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight, final int z) {
+    return z > topLeft.y() && z < bottomRight.y();
   }
 
   public static boolean checkTime(final int day, final int hour, final int minute) {
@@ -60,46 +50,34 @@ public final class Utils {
   }
 
   public static @NotNull BlockPos generateRandomPlayerPosition() {
-    final BlockPos pos = SURFACE_CACHE.poll();
-    if (pos != null) {
-      return pos;
-    }
-    for (int i = 0; i < 100; i++) {
-      final Continent cont = getRandomEnum(Continent.class);
-      final BlockPos rand = generateRandomPositionRaw(cont);
-      SURFACE_CACHE.add(rand);
-    }
-    return SURFACE_CACHE.poll();
+    return generateRandomPositionRaw(getRandomEnum(Continent.class));
   }
 
   public static @NotNull BlockPos generateRandomPositionRaw(@NotNull final Continent continent) {
-    final Pair<Integer, Integer> topLeft = continent.getTopLeft();
-    final Pair<Integer, Integer> bottomRight = continent.getBottomRight();
+    final XYPos topLeft = continent.getTopLeft();
+    final XYPos bottomRight = continent.getBottomRight();
     final int x = generateRandomX(topLeft, bottomRight);
     final int z = generateRandomZ(topLeft, bottomRight);
     final MinecraftServer server = SMPEarth.getServer();
     final World world = server.getOverworld();
-    BlockPos pos = null;
-    for (int y = 255; y > -60; y--) {
-      pos = new BlockPos(x, y, z);
+    for (int y = 320; y > -60; y--) {
+      final BlockPos pos = new BlockPos(x, y, z);
       final BlockState state = world.getBlockState(pos);
       if (!state.isAir()) {
-        break;
+        return pos.add(0, 1, 0);
       }
     }
-    return pos.add(0, 1, 0);
+    return generateRandomPositionRaw(continent);
   }
 
   private static int generateRandomX(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight) {
-    return RANDOM.nextInt(topLeft.getLeft(), bottomRight.getLeft());
+      @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight) {
+    return RANDOM.nextInt(topLeft.x(), bottomRight.x());
   }
 
   private static int generateRandomZ(
-      @NotNull final Pair<Integer, Integer> topLeft,
-      @NotNull final Pair<Integer, Integer> bottomRight) {
-    return RANDOM.nextInt(topLeft.getRight(), bottomRight.getRight());
+      @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight) {
+    return RANDOM.nextInt(topLeft.y(), bottomRight.y());
   }
 
   public static @NotNull <T extends Enum<?>> T getRandomEnum(@NotNull final Class<T> clazz) {

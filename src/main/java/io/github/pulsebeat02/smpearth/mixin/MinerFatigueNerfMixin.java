@@ -25,7 +25,7 @@ public final class MinerFatigueNerfMixin {
   @Inject(at = @At("HEAD"), method = "playerTick")
   private void applyMinerFatigueEffect(@NotNull final CallbackInfo ci) {
     final long now = System.currentTimeMillis();
-    if (now - this.ms < 15000L) {
+    if (now - this.ms < 60000L) {
       this.ms = now;
       return;
     }
@@ -37,6 +37,6 @@ public final class MinerFatigueNerfMixin {
     if (!Utils.withinContinent(continent, x, z)) {
       return;
     }
-    player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 15, 1));
+    player.addStatusEffect(new StatusEffectInstance(StatusEffects.MINING_FATIGUE, 60, 1));
   }
 }
