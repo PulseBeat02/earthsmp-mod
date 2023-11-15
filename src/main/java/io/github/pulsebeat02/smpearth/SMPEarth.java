@@ -21,12 +21,7 @@ public class SMPEarth implements ModInitializer {
   public void onInitialize() {
     this.registerCrates();
     this.registerEvents();
-    this.registerStaticBlocks();
     LOGGER.info("SMP Earth has been loaded!");
-  }
-
-  private void registerStaticBlocks() {
-    Utils.generateRandomPlayerPosition();
   }
 
   private void registerCrates() {

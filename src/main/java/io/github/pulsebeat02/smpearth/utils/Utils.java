@@ -6,6 +6,8 @@ import java.time.ZonedDateTime;
 import java.util.Queue;
 import java.util.SplittableRandom;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.IntStream;
+
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.Pair;
