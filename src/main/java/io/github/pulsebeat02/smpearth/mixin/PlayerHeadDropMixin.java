@@ -3,33 +3,31 @@ package io.github.pulsebeat02.smpearth.mixin;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.google.common.graph.Graph;
 import com.mojang.authlib.GameProfile;
 import io.github.pulsebeat02.smpearth.SMPEarth;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.common.SyncedClientOptions;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.UserCache;
 import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Optional;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
 @Mixin(ServerPlayerEntity.class)
 public final class PlayerHeadDropMixin {
 
-  private static final LoadingCache<String, ItemStack> CACHE;
+  @Unique private static final LoadingCache<String, ItemStack> CACHE;
 
   static {
     CACHE =
@@ -45,14 +43,18 @@ public final class PlayerHeadDropMixin {
                 });
   }
 
+  @Unique
   private static @NotNull ItemStack getHead(@NotNull final String key) {
     final UUID uuid = UUID.fromString(key);
     final MinecraftServer server = SMPEarth.getServer();
-    final Optional<GameProfile> profile = server.getUserCache().getByUuid(uuid);
+    final UserCache cache = server.getUserCache();
+    String owner = "Steve";
+    if (cache != null) {
+      final Optional<GameProfile> profile = server.getUserCache().getByUuid(uuid);
+      owner = profile.map(GameProfile::getName).orElse("Steve");
+    }
     final ItemStack stack = new ItemStack(Items.PLAYER_HEAD);
-    stack
-        .getOrCreateNbt()
-        .putString("SkullOwner", profile.map(GameProfile::getName).orElse("Steve"));
+    stack.getOrCreateNbt().putString("SkullOwner", owner);
     return stack;
   }
 
