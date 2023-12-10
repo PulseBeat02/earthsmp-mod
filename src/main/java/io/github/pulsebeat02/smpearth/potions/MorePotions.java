@@ -24,10 +24,6 @@ public final class MorePotions {
   public static final Potion ABSORPTION_POTION3;
   public static final Potion BLINDNESS_POTION;
   public static final Potion BLINDNESS_POTION2;
-  public static final Potion CONDUIT_POWER_POTION;
-  public static final Potion CONDUIT_POWER_POTION2;
-  public static final Potion DOLPHINS_GRACE_POTION;
-  public static final Potion DOLPHINS_GRACE_POTION2;
   public static final Potion GLOWING_POTION;
   public static final Potion GLOWING_POTION2;
   public static final Potion HEALTH_BOOST_POTION;
@@ -42,10 +38,6 @@ public final class MorePotions {
   public static final Potion WITHERING_POTION3;
   public static final Potion LUCK_POTION;
   public static final Potion UNLUCK_POTION;
-  public static final Potion BAD_OMEN_POTION;
-  public static final Potion HERO_OF_THE_VILLAGE_POTION;
-  public static final Potion HERO_OF_THE_VILLAGE_POTION2;
-  public static final Potion HERO_OF_THE_VILLAGE_POTION3;
   public static final Potion SATURATION_POTION;
   public static final Potion SATURATION_POTION2;
   public static final Potion HUNGER_POTION;
@@ -66,10 +58,6 @@ public final class MorePotions {
       @NotNull final Item ingredient,
       @NotNull final Potion input) {
     RECIPES.add(new BetterBrewingRecipe(input, ingredient, potion));
-    return register(name, potion);
-  }
-
-  public static Potion register(@NotNull final String name, @NotNull final Potion potion) {
     return Registry.register(Registries.POTION, name, potion);
   }
 
@@ -94,7 +82,7 @@ public final class MorePotions {
         register(
             "resistance_potion3",
             new Potion(new StatusEffectInstance(StatusEffects.RESISTANCE, 450, 1)),
-            Items.REDSTONE,
+            Items.GLOWSTONE,
             RESISTANCE_POTION);
     ABSORPTION_POTION =
         register(
@@ -126,22 +114,6 @@ public final class MorePotions {
             new Potion(new StatusEffectInstance(StatusEffects.BLINDNESS, 1600, 0)),
             Items.REDSTONE,
             BLINDNESS_POTION);
-    CONDUIT_POWER_POTION =
-        register(
-            "conduit_power_potion",
-            new Potion(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 800, 0)));
-    CONDUIT_POWER_POTION2 =
-        register(
-            "conduit_power_potion2",
-            new Potion(new StatusEffectInstance(StatusEffects.CONDUIT_POWER, 1600, 0)));
-    DOLPHINS_GRACE_POTION =
-        register(
-            "dolphins_grace_potion",
-            new Potion(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 800, 0)));
-    DOLPHINS_GRACE_POTION2 =
-        register(
-            "dolphins_grace_potion2",
-            new Potion(new StatusEffectInstance(StatusEffects.DOLPHINS_GRACE, 1600, 0)));
     GLOWING_POTION =
         register(
             "glowing_potion",
@@ -226,22 +198,6 @@ public final class MorePotions {
             new Potion(new StatusEffectInstance(StatusEffects.UNLUCK, 6000, 0)),
             Items.FERMENTED_SPIDER_EYE,
             LUCK_POTION);
-    BAD_OMEN_POTION =
-        register(
-            "bad_omen_potion",
-            new Potion(new StatusEffectInstance(StatusEffects.BAD_OMEN, 72000, 0)));
-    HERO_OF_THE_VILLAGE_POTION =
-        register(
-            "hero_of_the_village_potion",
-            new Potion(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 6000, 0)));
-    HERO_OF_THE_VILLAGE_POTION2 =
-        register(
-            "hero_of_the_village_potion2",
-            new Potion(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 9600, 0)));
-    HERO_OF_THE_VILLAGE_POTION3 =
-        register(
-            "hero_of_the_village_potion3",
-            new Potion(new StatusEffectInstance(StatusEffects.HERO_OF_THE_VILLAGE, 72000, 0)));
     SATURATION_POTION =
         register(
             "saturation_potion",
