@@ -16,6 +16,10 @@ public final class SMPEarth implements ModInitializer {
   public static final Logger LOGGER = LoggerFactory.getLogger("smpearth");
   private static MinecraftServer SERVER;
 
+  static {
+    MorePotions.registerPotions();
+  }
+
   @Override
   public void onInitialize() {
     this.registerCrates();

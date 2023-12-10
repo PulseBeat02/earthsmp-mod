@@ -3,10 +3,13 @@ package io.github.pulsebeat02.smpearth.potions;
 import io.github.pulsebeat02.smpearth.mixin.BrewingRecipeRegistryMixin;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.potion.PotionUtil;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.potion.Potions;
 import net.minecraft.item.Items;
@@ -57,8 +60,12 @@ public final class MorePotions {
       @NotNull final Potion potion,
       @NotNull final Item ingredient,
       @NotNull final Potion input) {
-    RECIPES.add(new BetterBrewingRecipe(input, ingredient, potion));
-    return Registry.register(Registries.POTION, name, potion);
+    final List<StatusEffectInstance> effects = potion.getEffects();
+    final ItemStack stack = new ItemStack(Items.POTION);
+    final ItemStack edited = PotionUtil.setCustomPotionEffects(stack, effects);
+    final Potion customPotion = PotionUtil.getPotion(edited);
+    RECIPES.add(new BetterBrewingRecipe(input, ingredient, customPotion));
+    return Registry.register(Registries.POTION, new Identifier("earthsmp", name), customPotion);
   }
 
   public static void registerPotions() {
