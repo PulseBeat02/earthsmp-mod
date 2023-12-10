@@ -3,6 +3,7 @@
   "package": "io.github.pulsebeat02.smpearth.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BrewingRecipeRegistryMixin",
     "CreeperEffectMixin",
     "DragonEggContainerMixin",
     "ElytraWornNerfMixin",
@@ -12,9 +13,11 @@
     "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
     "PlayerEntityMixin",
+    "PlayerHeadDropMixin",
     "PlayerManagerMixin",
     "ServerMixin",
     "ServerPlayerEntityMixin",
+    "SharedConstantsMixin",
     "StrongerMobsMixin",
     "SuspiciousBlockMixin"
   ],
