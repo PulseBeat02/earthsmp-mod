@@ -6,7 +6,6 @@ import net.minecraft.item.Item;
 import net.minecraft.potion.Potion;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.Identifier;
 import net.minecraft.registry.Registries;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.potion.Potions;
@@ -67,11 +66,11 @@ public final class MorePotions {
       @NotNull final Item ingredient,
       @NotNull final Potion input) {
     RECIPES.add(new BetterBrewingRecipe(input, ingredient, potion));
-    return Registry.register(Registries.POTION, new Identifier("smpearth", name), potion);
+    return register(name, potion);
   }
 
   public static Potion register(@NotNull final String name, @NotNull final Potion potion) {
-    return Registry.register(Registries.POTION, new Identifier("smpearth", name), potion);
+    return Registry.register(Registries.POTION, name, potion);
   }
 
   public static void registerPotions() {
@@ -336,7 +335,8 @@ public final class MorePotions {
     }
 
     public void register() {
-      BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(this.input, this.ingredient, this.result);
+      BrewingRecipeRegistryMixin.invokeRegisterPotionRecipe(
+          this.input, this.ingredient, this.result);
     }
   }
 }
