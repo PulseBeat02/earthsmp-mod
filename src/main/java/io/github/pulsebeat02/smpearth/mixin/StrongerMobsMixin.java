@@ -1,16 +1,22 @@
 package io.github.pulsebeat02.smpearth.mixin;
 
+import static java.lang.Integer.MAX_VALUE;
+import static net.minecraft.entity.effect.StatusEffects.*;
+import static net.minecraft.item.Items.*;
+
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.utils.Utils;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -23,24 +29,61 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ServerWorld.class)
 public final class StrongerMobsMixin {
+
+  @Unique private static @NotNull final Map<EquipmentSlot, ItemStack> ARMOR_PROVIDER;
+  @Unique private static @NotNull final Collection<StatusEffectInstance> POTION_EFFECTS;
+
+  static {
+    ARMOR_PROVIDER =
+        Map.of(
+            EquipmentSlot.HEAD, createArmor(NETHERITE_HELMET),
+            EquipmentSlot.CHEST, createArmor(NETHERITE_CHESTPLATE),
+            EquipmentSlot.LEGS, createArmor(NETHERITE_LEGGINGS),
+            EquipmentSlot.FEET, createArmor(NETHERITE_BOOTS));
+    POTION_EFFECTS =
+        List.of(
+            new StatusEffectInstance(HEALTH_BOOST, MAX_VALUE, 3),
+            new StatusEffectInstance(JUMP_BOOST, MAX_VALUE, 2),
+            new StatusEffectInstance(RESISTANCE, MAX_VALUE, 0),
+            new StatusEffectInstance(SPEED, MAX_VALUE, 3));
+  }
+
+  @Unique
+  private static @NotNull ItemStack createArmor(@NotNull final Item item) {
+    final ItemStack stack = new ItemStack(item);
+    final NbtCompound tag = stack.getOrCreateNbt();
+    stack.addEnchantment(Enchantments.THORNS, 3);
+    tag.putBoolean("Unbreakable", true);
+    return stack;
+  }
+
   @Inject(at = @At("TAIL"), method = "spawnEntity")
   private void spawnBuffedAfricaEntity(
       @NotNull final Entity entity, @NotNull final CallbackInfoReturnable<Boolean> cir) {
+
     if (!(entity instanceof final HostileEntity hostile)) {
       return;
     }
+
     if (entity.isInvulnerable()) {
       return;
     }
+
+    if (!checkBounds(entity)) {
+      return;
+    }
+
+    this.modifyCreeper(hostile);
+    this.modifyEntity(hostile);
+  }
+
+  @Unique
+  private static boolean checkBounds(@NotNull final Entity entity) {
     final Continent continent = Continent.AF;
     final BlockPos pos = entity.getBlockPos();
     final int x = pos.getX();
     final int z = pos.getZ();
-    if (!Utils.withinContinent(continent, x, z)) {
-      return;
-    }
-    this.modifyCreeper(hostile);
-    this.modifyEntity(hostile);
+    return Utils.withinContinent(continent, x, z);
   }
 
   @Unique
@@ -76,33 +119,11 @@ public final class StrongerMobsMixin {
 
   @Unique
   private void setArmor(@NotNull final HostileEntity entity) {
-    entity.equipStack(EquipmentSlot.HEAD, this.enchantArmor(new ItemStack(Items.NETHERITE_HELMET)));
-    entity.equipStack(
-        EquipmentSlot.CHEST, this.enchantArmor(new ItemStack(Items.NETHERITE_CHESTPLATE)));
-    entity.equipStack(
-        EquipmentSlot.LEGS, this.enchantArmor(new ItemStack(Items.NETHERITE_LEGGINGS)));
-    entity.equipStack(EquipmentSlot.FEET, this.enchantArmor(new ItemStack(Items.NETHERITE_BOOTS)));
-  }
-
-  @Unique
-  private @NotNull ItemStack enchantArmor(@NotNull final ItemStack stack) {
-    stack.addEnchantment(Enchantments.THORNS, 3);
-    final NbtCompound tag = stack.getOrCreateNbt();
-    tag.putBoolean("Unbreakable", true);
-    return stack;
+    ARMOR_PROVIDER.forEach((key, value) -> entity.equipStack(key, value.copy()));
   }
 
   @Unique
   private void addStatusEffects(@NotNull final HostileEntity entity) {
-    final StatusEffectInstance[] effects =
-        new StatusEffectInstance[] {
-          new StatusEffectInstance(StatusEffects.HEALTH_BOOST, Integer.MAX_VALUE, 3),
-          new StatusEffectInstance(StatusEffects.JUMP_BOOST, Integer.MAX_VALUE, 2),
-          new StatusEffectInstance(StatusEffects.RESISTANCE, Integer.MAX_VALUE, 0),
-          new StatusEffectInstance(StatusEffects.SPEED, Integer.MAX_VALUE, 3)
-        };
-    for (final StatusEffectInstance effect : effects) {
-      entity.addStatusEffect(effect);
-    }
+    POTION_EFFECTS.forEach(entity::addStatusEffect);
   }
 }

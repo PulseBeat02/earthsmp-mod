@@ -21,7 +21,7 @@ import java.util.Map;
 @Mixin(TradeOffers.class)
 public final class NerfVillagerMixin {
   @Final @Shadow
-  public static Map<VillagerProfession, Int2ObjectMap<TradeOffers.Factory[]>>
+  public static @NotNull Map<VillagerProfession, Int2ObjectMap<TradeOffers.Factory[]>>
       PROFESSION_TO_LEVELED_TRADE;
 
   static {

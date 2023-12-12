@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class Utils {
 
-  private static final SplittableRandom RANDOM;
+  private static @NotNull final SplittableRandom RANDOM;
 
   static {
     RANDOM = new SplittableRandom();

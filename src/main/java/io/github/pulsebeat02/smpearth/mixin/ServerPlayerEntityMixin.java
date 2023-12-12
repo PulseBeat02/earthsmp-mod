@@ -18,11 +18,13 @@ public abstract class ServerPlayerEntityMixin {
               value = "INVOKE",
               target =
                   "net/minecraft/world/GameRules.getBoolean(Lnet/minecraft/world/GameRules$Key;)Z"))
-  public boolean onCopyFrom(
+  private boolean onCopyFrom(
       @NotNull final GameRules rules,
-      final GameRules.Key<GameRules.BooleanRule> key,
+      @NotNull final GameRules.Key<GameRules.BooleanRule> key,
       @NotNull final ServerPlayerEntity oldPlayer) {
     final LivingEntity attacker = oldPlayer.getAttacker();
-    return rules.getBoolean(key) && (attacker == null || attacker.getType() != EntityType.PLAYER);
+    final boolean gamerule = rules.getBoolean(key);
+    final boolean playerAttack = (attacker == null || attacker.getType() != EntityType.PLAYER);
+    return gamerule && playerAttack;
   }
 }

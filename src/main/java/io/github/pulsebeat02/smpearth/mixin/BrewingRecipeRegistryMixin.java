@@ -2,6 +2,7 @@ package io.github.pulsebeat02.smpearth.mixin;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtList;
 import net.minecraft.recipe.BrewingRecipeRegistry;
 import net.minecraft.text.*;
 import net.minecraft.util.Formatting;
@@ -20,19 +21,34 @@ public final class BrewingRecipeRegistryMixin {
       @NotNull final ItemStack ingredient,
       @NotNull final ItemStack input,
       @NotNull final CallbackInfoReturnable<ItemStack> cir) {
+
     final ItemStack stack = cir.getReturnValue().copy();
     final Text name = stack.getName();
     final String text = name.getString();
-    if (!text.contains(".")) {
+    if (!isCustomPotions(text)) {
       return;
     }
-    final String modified = "Potion of " + getNameString(text);
-    final Style style = Style.EMPTY.withColor(Formatting.BLUE).withItalic(false);
-    final MutableText mutable = MutableText.of(TextContent.EMPTY).setStyle(style).append(modified);
-    stack.setCustomName(mutable);
-    final NbtCompound compound = stack.getNbt().getCompound("display");
-    compound.putString("Lore", "");
+
+    final MutableText component = createTextComponent(text);
+    stack.setCustomName(component);
+
+    final NbtCompound compound = stack.getOrCreateSubNbt("display");
+    compound.put("Lore", new NbtList());
+
     cir.setReturnValue(stack);
+  }
+
+  @Unique
+  private static @NotNull MutableText createTextComponent(@NotNull final String text) {
+    final String modified = "Potion of " + getNameString(text);
+    final TextContent literal = new LiteralTextContent(modified);
+    final Style style = Style.EMPTY.withColor(Formatting.BLUE).withItalic(false);
+    return MutableText.of(literal).setStyle(style);
+  }
+
+  @Unique
+  private static boolean isCustomPotions(@NotNull final String text) {
+    return text.contains(".");
   }
 
   @Unique

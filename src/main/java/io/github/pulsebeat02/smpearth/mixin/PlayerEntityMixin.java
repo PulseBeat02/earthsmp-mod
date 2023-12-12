@@ -41,6 +41,8 @@ public abstract class PlayerEntityMixin {
       @NotNull final GameRules rules, @NotNull final GameRules.Key<GameRules.BooleanRule> key) {
     final PlayerEntity player = (PlayerEntity) (Object) this;
     final LivingEntity attacker = player.getAttacker();
-    return rules.getBoolean(key) && (attacker == null || attacker.getType() != EntityType.PLAYER);
+    final boolean gamerule = rules.getBoolean(key);
+    final boolean playerAttack = (attacker == null || attacker.getType() != EntityType.PLAYER);
+    return gamerule && playerAttack;
   }
 }

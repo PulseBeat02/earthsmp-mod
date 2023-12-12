@@ -3,9 +3,12 @@ package io.github.pulsebeat02.smpearth.drops;
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.SMPEarth;
 import io.github.pulsebeat02.smpearth.utils.Utils;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChestBlockEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -16,14 +19,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingCrate {
 
-  private static final ExecutorService EXECUTOR;
+  private static @NotNull final ExecutorService EXECUTOR;
 
   static {
     EXECUTOR = Executors.newCachedThreadPool();
@@ -84,19 +82,23 @@ public abstract sealed class LootCrate permits AppleCrate, TotemCrate, SmithingC
   }
 
   private void broadcastMessage(@NotNull final BlockPos pos) {
+    final Text text = this.createTextMessage(pos);
     final MinecraftServer server = SMPEarth.getServer();
     final PlayerManager manager = server.getPlayerManager();
     final List<ServerPlayerEntity> players = manager.getPlayerList();
-    for (final PlayerEntity player : players) {
-      final String raw =
-          "A loot crate will spawn at %d, %d, %d in 30 minutes!"
-              .formatted(pos.getX(), pos.getY(), pos.getZ());
-      final TextContent literal = new LiteralTextContent(raw);
-      final MutableText text = MutableText.of(literal);
-      final TextColor color = TextColor.fromFormatting(Formatting.GOLD);
-      final Style style = Style.EMPTY.withBold(true).withColor(color);
-      text.setStyle(style);
-      player.sendMessage(text);
-    }
+    players.forEach(player -> player.sendMessage(text));
+  }
+
+  private @NotNull Text createTextMessage(@NotNull final BlockPos pos) {
+    final int x = pos.getX();
+    final int y = pos.getY();
+    final int z = pos.getZ();
+    final TextColor color = TextColor.fromFormatting(Formatting.GOLD);
+    final Style style = Style.EMPTY.withBold(true).withColor(color);
+    final String raw = "A loot crate will spawn at %d, %d, %d in 30 minutes!".formatted(x, y, z);
+    final TextContent literal = new LiteralTextContent(raw);
+    final MutableText text = MutableText.of(literal);
+    text.setStyle(style);
+    return text;
   }
 }

@@ -4,8 +4,7 @@ import io.github.pulsebeat02.smpearth.utils.Utils;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.PlayerManager;
@@ -16,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 public final class PlayerTeleportationHandler {
 
-  private static final Queue<UUID> PLAYER_QUEUE;
+  private static @NotNull final Queue<UUID> PLAYER_QUEUE;
 
   static {
     PLAYER_QUEUE = new ConcurrentLinkedQueue<>();
@@ -31,23 +30,42 @@ public final class PlayerTeleportationHandler {
   }
 
   private void handleServerTick(@NotNull final MinecraftServer server) {
+
     if (PLAYER_QUEUE.isEmpty()) {
       return;
     }
+
+    final Optional<ServerPlayerEntity> player = this.getPlayerEntity(server);
+    if (player.isEmpty()) {
+      return;
+    }
+
+    final ServerPlayerEntity entity = player.get();
+    if (!isChunkLoaded(entity)) {
+      return;
+    }
+
+    this.teleport(entity);
+  }
+
+  private void teleport(@NotNull final ServerPlayerEntity entity) {
+    CompletableFuture.supplyAsync(Utils::generateRandomPlayerPosition)
+        .thenAccept(rand -> this.teleport(entity, rand))
+        .thenRun(PLAYER_QUEUE::poll);
+  }
+
+  private @NotNull Optional<ServerPlayerEntity> getPlayerEntity(
+      @NotNull final MinecraftServer server) {
     final UUID uuid = PLAYER_QUEUE.peek();
     final PlayerManager manager = server.getPlayerManager();
     final ServerPlayerEntity player = manager.getPlayer(uuid);
-    if (player == null) {
-      return;
-    }
+    return Optional.ofNullable(player);
+  }
+
+  private static boolean isChunkLoaded(@NotNull final ServerPlayerEntity player) {
     final World world = player.getWorld();
     final BlockPos pos = player.getBlockPos();
-    if (!world.isChunkLoaded(pos)) {
-      return;
-    }
-    CompletableFuture.supplyAsync(Utils::generateRandomPlayerPosition)
-        .thenAccept(rand -> this.teleport(player, rand))
-        .thenRun(PLAYER_QUEUE::poll);
+    return world.isChunkLoaded(pos);
   }
 
   private void teleport(@NotNull final ServerPlayerEntity player, @NotNull final BlockPos pos) {

@@ -16,7 +16,7 @@ public final class FireworkItemMixin {
   @Inject(
       method = "<init>(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V",
       at = @At("TAIL"))
-  public void nerfLifeSpan(@NotNull final CallbackInfo ci) {
+  private void nerfLifeSpan(@NotNull final CallbackInfo ci) {
     this.lifeTime /= 5;
   }
 }
