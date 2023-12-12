@@ -2,7 +2,7 @@ package io.github.pulsebeat02.smpearth.utils;
 
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.SMPEarth;
-import io.github.pulsebeat02.smpearth.XYPos;
+
 import java.time.ZonedDateTime;
 import java.util.SplittableRandom;
 import net.minecraft.block.BlockState;

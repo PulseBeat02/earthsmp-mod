@@ -1,4 +1,4 @@
-package io.github.pulsebeat02.smpearth;
+package io.github.pulsebeat02.smpearth.utils;
 
 public final class XYPos {
 

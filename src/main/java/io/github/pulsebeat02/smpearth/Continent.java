@@ -1,5 +1,6 @@
 package io.github.pulsebeat02.smpearth;
 
+import io.github.pulsebeat02.smpearth.utils.XYPos;
 import org.jetbrains.annotations.NotNull;
 
 public enum Continent {
