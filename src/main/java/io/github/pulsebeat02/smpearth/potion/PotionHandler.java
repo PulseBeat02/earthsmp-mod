@@ -296,20 +296,23 @@ public final class PotionHandler {
 
   static void mapPotions(
       @NotNull final Potion in, @NotNull final Item ingredient, @NotNull final Potion result) {
+
     final Identifier potionInId = Registries.POTION.getId(in);
+    final String pathIn = potionInId.getPath();
+    final String namespaceIn = potionInId.getNamespace();
+    final Identifier longIdIn = new Identifier(namespaceIn, "long_" + pathIn);
+    final Identifier strongIdIn = new Identifier(namespaceIn, "strong_" + pathIn);
+
     final Identifier potionOutId = Registries.POTION.getId(result);
-    final Optional<Potion> inLong =
-        Registries.POTION.getOrEmpty(
-            new Identifier(potionInId.getNamespace(), "long_" + potionInId.getPath()));
-    final Optional<Potion> inStrong =
-        Registries.POTION.getOrEmpty(
-            new Identifier(potionInId.getNamespace(), "strong_" + potionInId.getPath()));
-    final Optional<Potion> outLong =
-        Registries.POTION.getOrEmpty(
-            new Identifier(potionOutId.getNamespace(), "long_" + potionOutId.getPath()));
-    final Optional<Potion> outStrong =
-        Registries.POTION.getOrEmpty(
-            new Identifier(potionOutId.getNamespace(), "strong_" + potionOutId.getPath()));
+    final String pathOut = potionOutId.getPath();
+    final String namespaceOut = potionOutId.getNamespace();
+    final Identifier longIdOut = new Identifier(namespaceOut, "long_" + pathOut);
+    final Identifier strongIdOut = new Identifier(namespaceOut, "strong_" + pathOut);
+
+    final Optional<Potion> inLong = Registries.POTION.getOrEmpty(longIdIn);
+    final Optional<Potion> inStrong = Registries.POTION.getOrEmpty(strongIdIn);
+    final Optional<Potion> outLong = Registries.POTION.getOrEmpty(longIdOut);
+    final Optional<Potion> outStrong = Registries.POTION.getOrEmpty(strongIdOut);
     if (outLong.isPresent() && inLong.isPresent()) {
       BrewingRecipeRegistry.registerPotionRecipe(inLong.get(), ingredient, outLong.get());
     }
