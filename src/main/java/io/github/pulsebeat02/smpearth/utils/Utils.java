@@ -3,7 +3,6 @@ package io.github.pulsebeat02.smpearth.utils;
 import io.github.pulsebeat02.smpearth.Continent;
 import io.github.pulsebeat02.smpearth.SMPEarth;
 
-import java.time.ZonedDateTime;
 import java.util.SplittableRandom;
 import net.minecraft.block.BlockState;
 import net.minecraft.server.MinecraftServer;
@@ -40,13 +39,6 @@ public final class Utils {
   private static boolean checkZCoordinate(
       @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight, final int z) {
     return z > topLeft.y() && z < bottomRight.y();
-  }
-
-  public static boolean checkTime(final int day, final int hour, final int minute) {
-    final ZonedDateTime time = ZonedDateTime.now();
-    return time.getDayOfWeek().getValue() == day
-        && time.getHour() == hour
-        && time.getMinute() == minute;
   }
 
   public static @NotNull BlockPos generateRandomPlayerPosition() {

@@ -1,8 +1,5 @@
 package io.github.pulsebeat02.smpearth;
 
-import io.github.pulsebeat02.smpearth.drops.AppleCrate;
-import io.github.pulsebeat02.smpearth.drops.SmithingCrate;
-import io.github.pulsebeat02.smpearth.drops.TotemCrate;
 import io.github.pulsebeat02.smpearth.events.PlayerTeleportationHandler;
 import io.github.pulsebeat02.smpearth.potion.PotionHandler;
 import net.fabricmc.api.ModInitializer;
@@ -15,15 +12,8 @@ public final class SMPEarth implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    this.registerCrates();
     this.registerEvents();
     this.registerPotions();
-  }
-
-  private void registerCrates() {
-    new AppleCrate();
-    new TotemCrate();
-    new SmithingCrate();
   }
 
   private void registerPotions() {
