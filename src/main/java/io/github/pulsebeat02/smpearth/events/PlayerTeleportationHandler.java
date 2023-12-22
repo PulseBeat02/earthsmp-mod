@@ -45,13 +45,9 @@ public final class PlayerTeleportationHandler {
       return;
     }
 
-    this.teleport(entity);
-  }
-
-  private void teleport(@NotNull final ServerPlayerEntity entity) {
-    CompletableFuture.supplyAsync(Utils::generateRandomPlayerPosition)
-        .thenAccept(rand -> this.teleport(entity, rand))
-        .thenRun(PLAYER_QUEUE::poll);
+    final BlockPos pos = Utils.generateRandomPlayerPosition();
+    this.teleport(entity, pos);
+    PLAYER_QUEUE.poll();
   }
 
   private @NotNull Optional<ServerPlayerEntity> getPlayerEntity(

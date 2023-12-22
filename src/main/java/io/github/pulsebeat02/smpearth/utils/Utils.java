@@ -38,7 +38,7 @@ public final class Utils {
 
   private static boolean checkZCoordinate(
       @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight, final int z) {
-    return z > topLeft.y() && z < bottomRight.y();
+    return z > topLeft.z() && z < bottomRight.z();
   }
 
   public static @NotNull BlockPos generateRandomPlayerPosition() {
@@ -69,7 +69,7 @@ public final class Utils {
 
   private static int generateRandomZ(
       @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight) {
-    return RANDOM.nextInt(topLeft.y(), bottomRight.y());
+    return RANDOM.nextInt(bottomRight.z(), topLeft.z());
   }
 
   public static @NotNull <T extends Enum<?>> T getRandomEnum(@NotNull final Class<T> clazz) {
