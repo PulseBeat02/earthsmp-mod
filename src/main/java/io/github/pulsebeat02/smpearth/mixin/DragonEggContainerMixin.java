@@ -56,7 +56,7 @@ public final class DragonEggContainerMixin {
     final ItemStack cursorStack = handler.getCursorStack();
     final ItemStack slotStack = handler.getSlot(slot).getStack();
     final ItemStack invStack = this.player.getInventory().getStack(packet.getButton());
-    return Set.of(packetStack, cursorStack, slotStack, invStack);
+    return List.of(packetStack, cursorStack, slotStack, invStack);
   }
 
   @Unique
