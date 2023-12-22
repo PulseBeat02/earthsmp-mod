@@ -41,7 +41,7 @@ public final class BrewingRecipeRegistryMixin {
   @Unique
   private static @NotNull MutableText createTextComponent(@NotNull final String text) {
     final String modified = "Potion of " + getNameString(text);
-    final TextContent literal = new LiteralTextContent(modified);
+    final TextContent literal = new PlainTextContent.Literal(modified);
     final Style style = Style.EMPTY.withColor(Formatting.BLUE).withItalic(false);
     return MutableText.of(literal).setStyle(style);
   }
