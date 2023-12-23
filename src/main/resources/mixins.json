@@ -14,7 +14,6 @@
     "NerfVillagerMixin",
     "PlayerEntityMixin",
     "PlayerHeadDropMixin",
-    "PlayerManagerMixin",
     "ServerMixin",
     "ServerPlayerEntityMixin",
     "SharedConstantsMixin",

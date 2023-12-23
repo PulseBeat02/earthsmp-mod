@@ -17,12 +17,12 @@ public final class HorseBuffMixin {
   @Mutable @Final @Shadow private static float MAX_HEALTH_BONUS;
 
   static {
-    MIN_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 1.0);
+    MIN_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 2.0);
     MAX_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 2.0);
-    MIN_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 1.0);
+    MIN_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 2.0);
     MAX_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 2.0);
     MIN_HEALTH_BONUS = getChildHealthBonusRaw(max -> max - 1);
-    MAX_HEALTH_BONUS = getChildHealthBonusRaw(max -> 2 * (max - 1));
+    MAX_HEALTH_BONUS = getChildHealthBonusRaw(max -> 3 * (max - 1));
   }
 
   @Unique

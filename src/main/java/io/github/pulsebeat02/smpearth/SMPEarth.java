@@ -1,6 +1,5 @@
 package io.github.pulsebeat02.smpearth;
 
-import io.github.pulsebeat02.smpearth.events.PlayerTeleportationHandler;
 import io.github.pulsebeat02.smpearth.potion.PotionHandler;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
@@ -12,16 +11,11 @@ public final class SMPEarth implements ModInitializer {
 
   @Override
   public void onInitialize() {
-    this.registerEvents();
     this.registerPotions();
   }
 
   private void registerPotions() {
     PotionHandler.registerPotions();
-  }
-
-  private void registerEvents() {
-    new PlayerTeleportationHandler();
   }
 
   public static @NotNull MinecraftServer getServer() {
