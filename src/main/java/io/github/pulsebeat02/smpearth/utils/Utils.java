@@ -69,7 +69,7 @@ public final class Utils {
 
   private static int generateRandomZ(
       @NotNull final XYPos topLeft, @NotNull final XYPos bottomRight) {
-    return RANDOM.nextInt(bottomRight.z(), topLeft.z());
+    return RANDOM.nextInt(topLeft.z(), bottomRight.z());
   }
 
   public static @NotNull <T extends Enum<?>> T getRandomEnum(@NotNull final Class<T> clazz) {

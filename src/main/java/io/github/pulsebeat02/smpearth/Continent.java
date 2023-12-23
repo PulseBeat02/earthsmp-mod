@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 public enum Continent {
   NA(new XYPos(-12288, -5734), new XYPos(-1365, -478)),
   SA(new XYPos(-5530, -819), new XYPos(-2389, 3755)),
-  EU(new XYPos(-1707, -2389), new XYPos(4437, -4915)),
+  EU(new XYPos(-807, -4915), new XYPos(4437, -2389)),
   AF(new XYPos(-1161, -2526), new XYPos(3413, 2389)),
   AS(new XYPos(3345, -4915), new XYPos(12288, -1024)),
   AU(new XYPos(7782, 819), new XYPos(10513, 2594));
