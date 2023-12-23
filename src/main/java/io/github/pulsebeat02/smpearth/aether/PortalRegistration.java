@@ -3,8 +3,11 @@ package io.github.pulsebeat02.smpearth.aether;
 import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.block.Blocks;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.util.Identifier;
 
 public final class PortalRegistration {
+
+  public static final Identifier DIMENSION_ID = new Identifier("smpearth", "aether");
 
   public PortalRegistration() {
     this.registerAetherPortal();
@@ -14,7 +17,7 @@ public final class PortalRegistration {
     CustomPortalBuilder.beginPortal()
         .frameBlock(Blocks.GLOWSTONE)
         .lightWithFluid(Fluids.WATER)
-        .destDimID(AetherDimension.DIMENSION_ID)
+        .destDimID(DIMENSION_ID)
         .registerPortal();
   }
 }
