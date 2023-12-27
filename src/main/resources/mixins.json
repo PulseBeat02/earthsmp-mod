@@ -14,7 +14,6 @@
     "HorseBuffMixin",
     "LoomScreenHandlerMixin",
     "MinecartVelocityMixin",
-    "MinerFatigueNerfMixin",
     "NerfVillagerMixin",
     "PlayerEntityMixin",
     "PlayerHeadDropMixin",
