@@ -25,6 +25,7 @@ public final class AetherPortalCheck {
   // X X X X
   //
 
+  @Unique
   private static final boolean[][] PORTAL_SHAPE;
 
   static {
