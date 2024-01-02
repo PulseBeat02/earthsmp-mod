@@ -62,6 +62,9 @@ public final class AetherPortalCheck {
     }
 
     final BlockPos topLeft = this.getTopLeft(player, pos);
+
+    System.out.println(topLeft);
+
     if (!this.checkPortal(player, topLeft)) {
       return;
     }
@@ -116,10 +119,10 @@ public final class AetherPortalCheck {
   private @NotNull BlockPos getTopLeft(
       @NotNull final PlayerEntity entity, @NotNull final BlockPos pos) {
     final World world = entity.getWorld();
-    BlockPos temp = pos;
+    BlockPos temp = pos.add(0, -1, 0);
     while (true) {
-      final BlockPos top = temp.up(1);
-      final BlockPos left = temp.west(1);
+      final BlockPos top = temp.add(0, 1, 0);
+      final BlockPos left = temp.add(-1, 0, 0);
       final BlockState topState = world.getBlockState(top);
       final BlockState leftState = world.getBlockState(left);
       if (this.isGlowstone(topState)) {
