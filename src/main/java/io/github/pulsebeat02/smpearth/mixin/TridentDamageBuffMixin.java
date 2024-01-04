@@ -14,9 +14,8 @@ public final class TridentDamageBuffMixin {
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),
-      index = 1)
+                  "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
   private float changeDamage(final float g) {
-    return g * 3f;
+    return g * 2f;
   }
 }
