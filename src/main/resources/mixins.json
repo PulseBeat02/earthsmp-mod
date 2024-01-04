@@ -23,7 +23,8 @@
     "ServerPlayerEntityMixin",
     "SharedConstantsMixin",
     "StrongerMobsMixin",
-    "SuspiciousBlockMixin"
+    "SuspiciousBlockMixin",
+    "TridentDamageBuffMixin"
   ],
   "injectors": {
     "defaultRequire": 1
