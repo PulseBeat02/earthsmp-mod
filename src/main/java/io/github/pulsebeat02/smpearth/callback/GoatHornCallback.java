@@ -43,7 +43,7 @@ public final class GoatHornCallback {
   }
 
   private void addEffect(@NotNull final PlayerEntity entity) {
-    entity.addStatusEffect(new StatusEffectInstance(SPEED, 10));
+    entity.addStatusEffect(new StatusEffectInstance(SPEED, 80));
   }
 
   private boolean isGoatHorn(@NotNull final Item item) {
