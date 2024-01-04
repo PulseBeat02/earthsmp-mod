@@ -1,6 +1,5 @@
 package io.github.pulsebeat02.smpearth;
 
-import io.github.pulsebeat02.smpearth.aether.PortalRegistration;
 import io.github.pulsebeat02.smpearth.callback.AnvilRestoreCallback;
 import io.github.pulsebeat02.smpearth.potion.PotionHandler;
 import net.fabricmc.api.ModInitializer;
@@ -14,16 +13,11 @@ public final class SMPEarth implements ModInitializer {
   @Override
   public void onInitialize() {
     this.registerPotions();
-    this.registerDimensions();
     this.registerCallbacks();
   }
 
   private void registerCallbacks() {
     new AnvilRestoreCallback();
-  }
-
-  private void registerDimensions() {
-    new PortalRegistration();
   }
 
   private void registerPotions() {
