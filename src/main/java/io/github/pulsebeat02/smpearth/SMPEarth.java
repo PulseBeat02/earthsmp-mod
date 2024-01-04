@@ -1,6 +1,7 @@
 package io.github.pulsebeat02.smpearth;
 
 import io.github.pulsebeat02.smpearth.callback.AnvilRestoreCallback;
+import io.github.pulsebeat02.smpearth.callback.GoatHornCallback;
 import io.github.pulsebeat02.smpearth.potion.PotionHandler;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
@@ -18,6 +19,7 @@ public final class SMPEarth implements ModInitializer {
 
   private void registerCallbacks() {
     new AnvilRestoreCallback();
+    new GoatHornCallback();
   }
 
   private void registerPotions() {
