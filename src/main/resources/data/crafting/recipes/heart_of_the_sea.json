@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#G#",
+        "GNG",
+        "#G#"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:water_bucket"
+        },
+        "G": {
+            "item": "minecraft:glass"
+        },
+        "N": {
+            "item": "minecraft:nether_star"
+        }
+    },
+    "result": {
+        "item": "minecraft:heart_of_the_sea",
+        "count": 1
+    }
+}
