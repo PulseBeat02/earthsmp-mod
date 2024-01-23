@@ -11,6 +11,7 @@
     "ElytraWornNerfMixin",
     "FireworkDamageBuffMixin",
     "HorseBuffMixin",
+    "MerchantEntityMixin",
     "MinecartVelocityMixin",
     "NerfVillagerMixin",
     "PlayerEntityMixin",
