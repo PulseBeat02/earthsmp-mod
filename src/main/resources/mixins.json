@@ -3,7 +3,6 @@
   "package": "io.github.pulsebeat02.smpearth.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AetherPortalCheck",
     "AnvilScreenHandlerMixin",
     "BrewingRecipeRegistryMixin",
     "CreeperEffectMixin",

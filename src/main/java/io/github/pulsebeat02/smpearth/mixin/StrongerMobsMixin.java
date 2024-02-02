@@ -36,16 +36,10 @@ public final class StrongerMobsMixin {
   static {
     ARMOR_PROVIDER =
         Map.of(
-            EquipmentSlot.HEAD, createArmor(NETHERITE_HELMET),
             EquipmentSlot.CHEST, createArmor(NETHERITE_CHESTPLATE),
             EquipmentSlot.LEGS, createArmor(NETHERITE_LEGGINGS),
             EquipmentSlot.FEET, createArmor(NETHERITE_BOOTS));
-    POTION_EFFECTS =
-        List.of(
-            new StatusEffectInstance(HEALTH_BOOST, MAX_VALUE, 3),
-            new StatusEffectInstance(JUMP_BOOST, MAX_VALUE, 2),
-            new StatusEffectInstance(RESISTANCE, MAX_VALUE, 0),
-            new StatusEffectInstance(SPEED, MAX_VALUE, 3));
+    POTION_EFFECTS = List.of(new StatusEffectInstance(SPEED, MAX_VALUE, 3));
   }
 
   @Unique
