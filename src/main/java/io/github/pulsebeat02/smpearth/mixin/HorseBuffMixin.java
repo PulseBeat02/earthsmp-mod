@@ -21,8 +21,8 @@ public final class HorseBuffMixin {
     MAX_MOVEMENT_SPEED_BONUS = (float) getChildMovementSpeedBonusRaw(() -> 2.0);
     MIN_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 2.0);
     MAX_JUMP_STRENGTH_BONUS = (float) getChildJumpStrengthBonusRaw(() -> 2.0);
-    MIN_HEALTH_BONUS = getChildHealthBonusRaw(max -> max - 1);
-    MAX_HEALTH_BONUS = getChildHealthBonusRaw(max -> 3 * (max - 1));
+    MIN_HEALTH_BONUS = getChildHealthBonusRaw(max -> max);
+    MAX_HEALTH_BONUS = getChildHealthBonusRaw(max -> 3 * max);
   }
 
   @Unique

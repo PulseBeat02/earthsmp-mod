@@ -46,7 +46,7 @@ public final class StrongerMobsMixin {
   private static @NotNull ItemStack createArmor(@NotNull final Item item) {
     final ItemStack stack = new ItemStack(item);
     final NbtCompound tag = stack.getOrCreateNbt();
-    stack.addEnchantment(Enchantments.THORNS, 3);
+    stack.addEnchantment(Enchantments.THORNS, 1);
     tag.putBoolean("Unbreakable", true);
     return stack;
   }

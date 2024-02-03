@@ -17,6 +17,6 @@ public final class FireworkDamageBuffMixin {
                   "Lnet/minecraft/entity/LivingEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"),
       index = 1)
   private float changeDamage(final float g) {
-    return g * 2f;
+    return g * 1.7f;
   }
 }

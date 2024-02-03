@@ -16,6 +16,6 @@ public final class TridentDamageBuffMixin {
               target =
                   "Lnet/minecraft/entity/Entity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z"))
   private float changeDamage(final float g) {
-    return g * 2f;
+    return g * 1.7f;
   }
 }
