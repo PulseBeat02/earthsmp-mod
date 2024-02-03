@@ -33,8 +33,7 @@ public final class DragonEggContainerMixin {
     final List<ItemStack> itemStacks = new ArrayList<>(raw);
     final ScreenHandler handler = this.player.currentScreenHandler;
     final int slot = packet.getSlot();
-    final int button = packet.getButton();
-    if (slot < 0 || button < 0) {
+    if (slot == -999) {
       return;
     }
 
@@ -49,15 +48,21 @@ public final class DragonEggContainerMixin {
   }
 
   @Unique
-  private @NotNull @Unmodifiable Collection<ItemStack> getOtherItemStacks(
+  private @NotNull Collection<ItemStack> getOtherItemStacks(
       @NotNull final ClickSlotC2SPacket packet,
       @NotNull final ScreenHandler handler,
       final int slot) {
-    final ItemStack packetStack = packet.getStack();
-    final ItemStack cursorStack = handler.getCursorStack();
-    final ItemStack slotStack = handler.getSlot(slot).getStack();
-    final ItemStack invStack = this.player.getInventory().getStack(packet.getButton());
-    return List.of(packetStack, cursorStack, slotStack, invStack);
+    final List<ItemStack> stacks = new ArrayList<>();
+    stacks.add(packet.getStack());
+    stacks.add(handler.getCursorStack());
+    if (slot >= 0) {
+      stacks.add(handler.getSlot(slot).getStack());
+    }
+    final int button = packet.getButton();
+    if (button >= 0) {
+      stacks.add(this.player.getInventory().getStack(button));
+    }
+    return stacks;
   }
 
   @Unique
