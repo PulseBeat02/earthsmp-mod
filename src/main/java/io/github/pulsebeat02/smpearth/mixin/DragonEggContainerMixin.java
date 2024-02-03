@@ -33,7 +33,8 @@ public final class DragonEggContainerMixin {
     final List<ItemStack> itemStacks = new ArrayList<>(raw);
     final ScreenHandler handler = this.player.currentScreenHandler;
     final int slot = packet.getSlot();
-    if (slot == -999) {
+    final int button = packet.getButton();
+    if (slot < 0 || button < 0) {
       return;
     }
 
