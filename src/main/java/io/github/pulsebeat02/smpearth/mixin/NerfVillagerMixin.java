@@ -38,14 +38,14 @@ public final class NerfVillagerMixin {
                 },
                 2,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.BuyItemFactory(Blocks.PUMPKIN, 12, 12, 10),
+                  new TradeOffers.BuyItemFactory(Blocks.PUMPKIN, 8, 12, 10),
                   new TradeOffers.SellItemFactory(Items.PUMPKIN_PIE, 1, 4, 5),
                   new TradeOffers.SellItemFactory(Items.APPLE, 1, 4, 16, 5)
                 },
                 3,
                 new TradeOffers.Factory[] {
                   new TradeOffers.SellItemFactory(Items.COOKIE, 3, 18, 10),
-                  new TradeOffers.BuyItemFactory(Blocks.MELON, 8, 12, 20)
+                  new TradeOffers.BuyItemFactory(Blocks.MELON, 6, 12, 20)
                 },
                 4,
                 new TradeOffers.Factory[] {
@@ -70,7 +70,7 @@ public final class NerfVillagerMixin {
                 .put(
                     1,
                     new TradeOffers.Factory[] {
-                      new TradeOffers.BuyItemFactory(Items.PAPER, 48, 16, 2),
+                      new TradeOffers.BuyItemFactory(Items.PAPER, 24, 16, 2),
                       new TradeOffers.EnchantBookFactory(1),
                       new TradeOffers.SellItemFactory(Blocks.BOOKSHELF, 18, 1, 12, 1)
                     })
@@ -109,7 +109,7 @@ public final class NerfVillagerMixin {
             ImmutableMap.of(
                 1,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.BuyItemFactory(Items.COAL, 30, 16, 2),
+                  new TradeOffers.BuyItemFactory(Items.COAL, 16, 16, 2),
                   new TradeOffers.SellItemFactory(
                       new ItemStack(Items.IRON_LEGGINGS), 7, 1, 12, 1, 0.2F),
                   new TradeOffers.SellItemFactory(
@@ -156,7 +156,7 @@ public final class NerfVillagerMixin {
             ImmutableMap.of(
                 1,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.BuyItemFactory(Items.COAL, 30, 16, 2),
+                  new TradeOffers.BuyItemFactory(Items.COAL, 16, 16, 2),
                   new TradeOffers.SellItemFactory(new ItemStack(Items.IRON_AXE), 3, 1, 12, 1, 0.2F),
                   new TradeOffers.SellEnchantedToolFactory(Items.IRON_SWORD, 2, 3, 1)
                 },
@@ -183,7 +183,7 @@ public final class NerfVillagerMixin {
             ImmutableMap.of(
                 1,
                 new TradeOffers.Factory[] {
-                  new TradeOffers.BuyItemFactory(Items.COAL, 30, 16, 2),
+                  new TradeOffers.BuyItemFactory(Items.COAL, 16, 16, 2),
                   new TradeOffers.SellItemFactory(
                       new ItemStack(Items.STONE_AXE), 1, 1, 12, 1, 0.2F),
                   new TradeOffers.SellItemFactory(

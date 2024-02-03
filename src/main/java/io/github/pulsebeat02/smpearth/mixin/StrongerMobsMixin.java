@@ -36,9 +36,9 @@ public final class StrongerMobsMixin {
   static {
     ARMOR_PROVIDER =
         Map.of(
-            EquipmentSlot.CHEST, createArmor(NETHERITE_CHESTPLATE),
-            EquipmentSlot.LEGS, createArmor(NETHERITE_LEGGINGS),
-            EquipmentSlot.FEET, createArmor(NETHERITE_BOOTS));
+            EquipmentSlot.CHEST, createArmor(DIAMOND_CHESTPLATE),
+            EquipmentSlot.LEGS, createArmor(DIAMOND_LEGGINGS),
+            EquipmentSlot.FEET, createArmor(DIAMOND_BOOTS));
     POTION_EFFECTS = List.of(new StatusEffectInstance(SPEED, MAX_VALUE, 3));
   }
 
@@ -85,8 +85,7 @@ public final class StrongerMobsMixin {
     if (entity instanceof final CreeperEntity creeper) {
       final NbtCompound tag = new NbtCompound();
       tag.putBoolean("powered", true);
-      tag.putShort("Fuse", (short) 1);
-      tag.putByte("ExplosionRadius", (byte) 3);
+      tag.putShort("Fuse", (short) 3);
       creeper.readCustomDataFromNbt(tag);
     }
   }
