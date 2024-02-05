@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -37,7 +38,6 @@ public final class StrongerMobsMixin {
     ARMOR_PROVIDER =
         Map.of(
             EquipmentSlot.CHEST, createArmor(DIAMOND_CHESTPLATE),
-            EquipmentSlot.LEGS, createArmor(DIAMOND_LEGGINGS),
             EquipmentSlot.FEET, createArmor(DIAMOND_BOOTS));
     POTION_EFFECTS = List.of(new StatusEffectInstance(SPEED, MAX_VALUE, 3));
   }
@@ -77,7 +77,13 @@ public final class StrongerMobsMixin {
     final BlockPos pos = entity.getBlockPos();
     final int x = pos.getX();
     final int z = pos.getZ();
-    return Utils.withinContinent(continent, x, z);
+    final World world = entity.getWorld();
+    return isOverworld(world) && Utils.withinContinent(continent, x, z);
+  }
+
+  @Unique
+  private static boolean isOverworld(@NotNull final World world) {
+    return world.getRegistryKey() == World.OVERWORLD;
   }
 
   @Unique
